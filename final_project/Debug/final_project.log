@@ -1,0 +1,12 @@
+﻿  Being.cpp
+  BeingData.cpp
+  CaracterSkill.cpp
+  Skill.cpp
+C:\Users\rebecca\Desktop\final_project\final_project\Skill.cpp(1,10): fatal error C1083: 無法開啟包含檔案: 'Card.h': No such file or directory
+  Character.cpp
+  final_project.cpp
+  Maze.cpp
+  Monster.cpp
+  MonsterSkill.cpp
+  Postition.cpp
+  正在產生程式碼...
