@@ -2,6 +2,9 @@
 
 #include <iostream>
 
+#include "BeingData.h"
+#include 
+
 #include "Being.h"
 #include "Character.h"
 #include "Monster.h"

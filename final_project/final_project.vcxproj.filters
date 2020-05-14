@@ -51,6 +51,12 @@
     <ClCompile Include="GloomHaven.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="CharcterData.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterData.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Being.h">
@@ -84,6 +90,12 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="GloomHaven.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="CharcterData.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterData.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

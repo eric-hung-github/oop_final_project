@@ -6,7 +6,7 @@ class Action
 
 class ActAttack :public Action
 {
-
+	//  charcter
 };
 
 class ActSheild :public Action
