@@ -1,6 +1,4 @@
-﻿
-
-#include <iostream>
+﻿#include <iostream>
 
 #include "BeingData.h"
 #include "CharcterData.h"

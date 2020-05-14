@@ -23,3 +23,8 @@ class ActHeal :public Action
 {
 
 };
+
+class ActRest :public Action
+{
+
+};
