@@ -26,6 +26,11 @@ class GloomHaven
 
 	MapData map;
 
+	void loadMap();
+	void loadCharcterData();
+	void loadMonsterDatas();
+
+	void chooseCharcters();
 
 	void draw();
 };

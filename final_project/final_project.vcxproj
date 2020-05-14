@@ -177,6 +177,11 @@
     <ClInclude Include="MonsterSkill.h" />
     <ClInclude Include="Postition.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="charcter.txt" />
+    <Text Include="map.txt" />
+    <Text Include="monster.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
