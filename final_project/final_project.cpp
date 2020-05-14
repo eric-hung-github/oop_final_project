@@ -23,6 +23,7 @@ using namespace std;
 
 int main()
 {
+    cout << "final project" << endl;
     // loading all data
 
     // choose charcter
