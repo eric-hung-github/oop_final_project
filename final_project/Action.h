@@ -1,7 +1,11 @@
 #pragma once
+#include "Being.h"
+
 class Action
 {
+public:
 	int point;
+	virtual void execute(Being being);
 };
 
 class ActAttack :public Action

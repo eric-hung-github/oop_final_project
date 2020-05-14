@@ -5,6 +5,6 @@ using namespace std;
 
 class MonsterData :public BeingData
 {
-
+	bool load();
 };
 

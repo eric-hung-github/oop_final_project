@@ -1,4 +1,10 @@
 ﻿#include <iostream>
+#include <string>
+
+#include "GloomHaven.h"
+
+#include "MapData.h"
+#include "Postition.h"
 
 #include "BeingData.h"
 #include "CharcterData.h"
@@ -12,9 +18,6 @@
 #include "CaracterSkill.h"
 #include "MonsterSkill.h"
 
-#include "MapData.h"
-#include "Postition.h"
-
 
 using namespace std;
 
@@ -22,10 +25,14 @@ using namespace std;
 // ALL FUNCTION
 //------------------------------------
 
+string mapFileName = "map.txt";
 
 int main()
 {
-    cout << "final project" << endl;
+    GloomHaven game;
+    game.map.loadBoard(mapFileName);
+
+    game.draw();
     // loading all data
 
     // choose charcter

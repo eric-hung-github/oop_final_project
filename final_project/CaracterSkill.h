@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 #include "Skill.h"
 #include "Action.h"
 
@@ -8,4 +10,7 @@ class CaracterSkill :public Skill
 {
 	Action upAct;
 	Action downAct;
+
+public:
+	CaracterSkill(string information);
 };

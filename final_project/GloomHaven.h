@@ -18,7 +18,7 @@ using namespace std;
 
 class GloomHaven
 {
-
+public:
 	vector<CharcterData> CharcterDatas;
 	vector<MonsterData> MonsterDatas;
 	vector<Character> Characters;
@@ -26,16 +26,18 @@ class GloomHaven
 
 	MapData map;
 
-	void loadMap();
-	void loadCharcterData();
-	void loadMonsterDatas();
+	// load all data into this
+	bool loadMap();
+	bool loadCharcterData(string fileName);
+	bool loadMonsterDatas(string fileName);
 
+	// choose characters into Characters from CharcterDatas
 	void chooseCharcters();
 
 	void draw();
 };
 
-// loading charctor
+
 
 // loading map
 
