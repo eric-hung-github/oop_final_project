@@ -3,7 +3,8 @@
 #include <iostream>
 
 #include "BeingData.h"
-#include 
+#include "CharcterData.h"
+#include "MonsterData.h"
 
 #include "Being.h"
 #include "Character.h"
@@ -32,4 +33,16 @@ int main()
     // choose charcter
 
     // choose maze
+
+    while (true)
+    {
+        // charcter choose skills
+
+        // monster choose skills
+
+        // execute  action <being skill> sort by sp
+
+        // is other trigger ex open door all dead 
+
+    }
 }
