@@ -26,11 +26,13 @@ using namespace std;
 //------------------------------------
 
 string mapFileName = "map.txt";
+string charcterFileName = "charcter.txt";
 
 int main()
 {
     GloomHaven game;
     game.map.loadBoard(mapFileName);
+    game.loadCharcterData(charcterFileName);
 
     game.draw();
     // loading all data

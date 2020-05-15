@@ -22,7 +22,8 @@ bool GloomHaven::loadCharcterData(string fileName)
 		string name;
 		int hp, maxSkill,allCapableSkills;
 
-		file >> name >> hp >> maxSkill >> allCapableSkills;
+		file >> name;
+		file >> hp >> maxSkill >> allCapableSkills;
 
 		CharcterData aCharcterData(name,hp,maxSkill);
 
