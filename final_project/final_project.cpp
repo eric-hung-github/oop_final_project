@@ -34,6 +34,7 @@ int main()
     game.map.loadBoard(mapFileName);
     game.loadCharcterData(charcterFileName);
 
+    //
     game.draw();
     // loading all data
 

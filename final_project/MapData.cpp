@@ -23,5 +23,7 @@ bool MapData::loadBoard(string fileName)
 			file >> board[i][j];
 		}
 	}
+
+	file.close();
 	return true;
 }

@@ -12,48 +12,55 @@ CaracterSkill::CaracterSkill(string information)
 	infor >> this->number;
 	infor >> this->sp;
 
-	string actType;
-	int point;
-	// fill Action into upAct
-	while (infor>> actType>> point)
-	{
-		Action* act = nullptr;;
-
-		if (actType == "-") {
-			break;
-		}else if (actType == "move") {
-			//*act = ActAttack::ActAttack(point);
-		}
-		else if (actType == "move") {
-
-		}
-		else if (actType == "move") {
-
-		}
-		else if (actType == "move") {
-
-		}
-	}
-
-	while (infor >> actType)
-	{
-		Action* act = nullptr;;
-
-		if (actType == "-") {
-			break;
-		}
-		else if (actType == "move") {
-			//*act = ActAttack::ActAttack(point);
-		}
-		else if (actType == "move") {
-
-		}
-		else if (actType == "move") {
-
-		}
-		else if (actType == "move") {
-
-		}
-	}
+	enterAction(infor, this->upAct);
+	enterAction(infor, this->downAct);
 }
 
+void enterAction(stringstream& infor, vector<Action*>& actions)
+{
+	string actType="";
+	int point=0;
+	if (!(infor >> actType >> point)) {
+		return;
+	}
+	
+
+	Action* act = nullptr;
+
+
+	if (actType == "-") {
+		return;
+	}
+	else if (actType == "attack") {
+
+		string nextActType = "";
+		int nextPoint = 0;
+		infor >> nextActType >> nextPoint;
+
+		// is enter rangeer attack
+		if (nextActType == "range") {
+			*act = ActAttack::ActAttack(point, nextPoint);
+		}
+		else {
+			*act = ActAttack::ActAttack(point, 0);
+
+			// add back string 
+			string temp;
+			getline(infor, temp);
+			temp = nextActType + ' ' + to_string(nextPoint) + ' ' + temp;
+			infor = stringstream(temp);
+		}
+
+	}
+	else if (actType == "heal") {
+		*act = ActHeal::ActHeal(point);
+	}
+	else if (actType == "shield") {
+		*act = ActSheild::ActSheild(point);
+	}
+	else if (actType == "move") {
+		*act = ActMove::ActMove(point);
+	}
+
+	enterAction(infor, actions);
+}

@@ -6,7 +6,8 @@
 
 using namespace std;
 
-//vector<Action*> enterAction(stringstream infor);
+// use recursive to enter skills
+void enterAction(stringstream &infor, vector<Action*> &actions);
 
 class CaracterSkill :public Skill
 {

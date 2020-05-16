@@ -42,9 +42,8 @@ bool GloomHaven::loadCharcterData(string fileName)
 			aCharcterData.skills.push_back(aSkill);
 		}
 	}
-	
-	
 
+	file.close();
 	return true;
 }
 

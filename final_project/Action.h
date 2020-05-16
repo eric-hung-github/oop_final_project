@@ -15,9 +15,10 @@ public:
 class ActAttack :public Action
 {
 public:
-	ActAttack(int point) :Action::Action(point) {}
-
 	int range;
+
+	ActAttack(int point, int range) :Action::Action(point) { this->range = range; }
+
 	//
 	void execute (Being being)override;
 };
@@ -25,6 +26,8 @@ public:
 class ActSheild :public Action
 {
 public:
+	ActSheild(int point) :Action::Action(point) {}
+
 	void execute(Being being)override;
 };
 
@@ -49,7 +52,7 @@ public:
 class ActRest :public Action
 {
 public:
-	ActRest(int point) :Action::Action(point) {}
+	//ActRest(int point) :Action::Action(point) {}
 
 	void execute(Being being)override;
 };
