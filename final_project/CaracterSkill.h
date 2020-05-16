@@ -1,16 +1,19 @@
 #pragma once
 #include <string>
-
+#include <vector>
 #include "Skill.h"
 #include "Action.h"
 
 using namespace std;
 
+vector<Action*> enterAction(stringstream infor);
+
 class CaracterSkill :public Skill
 {
-	Action upAct;
-	Action downAct;
+	vector<Action*>upAct;
+	vector<Action*>downAct;
 
 public:
 	CaracterSkill(string information);
+
 };

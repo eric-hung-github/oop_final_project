@@ -8,17 +8,20 @@ using namespace std;
 
 bool GloomHaven::loadCharcterData(string fileName)
 {
+	// open file
 	ifstream file = ifstream(fileName);
 	if (!file.is_open()) {
 		cout << "open file " << fileName << " error!" << endl;
 		return false;
 	}
 
+	// reading n Charcter
 	int CharcterDataCount = 0;
 	file >> CharcterDataCount;
 
 	for (int  i = 0; i < CharcterDataCount; i++)
 	{
+		// new a CharcterData with name hp maxSkill
 		string name;
 		int hp, maxSkill,allCapableSkills;
 
@@ -27,11 +30,14 @@ bool GloomHaven::loadCharcterData(string fileName)
 
 		CharcterData aCharcterData(name,hp,maxSkill);
 
+		// reading skills into CharcterData's skill
 		for (int j = 0; j < allCapableSkills; j++)
 		{
 			string skillInfor;
 			getline(file, skillInfor);
 			
+			// enter a line of skill info to new a CaracterSkill 
+			//and push into CharcterData's skill
 			CaracterSkill aSkill = CaracterSkill(skillInfor);
 			aCharcterData.skills.push_back(aSkill);
 		}

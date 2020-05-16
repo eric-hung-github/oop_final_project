@@ -10,26 +10,33 @@ public:
 
 class ActAttack :public Action
 {
-	//  charcter
-	void execute (Being being);
+public:
+	int range;
+	//  
+	void execute (Being being)override;
 };
 
 class ActSheild :public Action
 {
-	void execute(Being being);
+public:
+	void execute(Being being)override;
 };
 
 class ActMove :public Action
 {
-	void execute(Being being);
+public:
+	vector<Postition> direction;
+	void execute(Being being)override;
 };
 
 class ActHeal :public Action
 {
-	void execute(Being being);
+public:
+	void execute(Being being)override;
 };
 
 class ActRest :public Action
 {
-	void execute(Being being);
+public:
+	void execute(Being being)override;
 };
