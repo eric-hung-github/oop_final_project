@@ -9,7 +9,8 @@ using namespace std;
 bool GloomHaven::loadCharcterData(string fileName)
 {
 	// open file
-	ifstream file = ifstream(fileName);
+	ifstream file;
+	file = ifstream(fileName);
 	if (!file.is_open()) {
 		cout << "open file " << fileName << " error!" << endl;
 		return false;
@@ -19,23 +20,23 @@ bool GloomHaven::loadCharcterData(string fileName)
 	int CharcterDataCount = 0;
 	file >> CharcterDataCount;
 
-	for (int  i = 0; i < CharcterDataCount; i++)
+	for (int i = 0; i < CharcterDataCount; i++)
 	{
 		// new a CharcterData with name hp maxSkill
-		string name="";
-		int hp, maxSkill,allCapableSkills;
+		string name = "";
+		int hp, maxSkill, allCapableSkills;
 
 		file >> name;
 		file >> hp >> maxSkill >> allCapableSkills;
 
-		CharcterData aCharcterData(name,hp,maxSkill);
+		CharcterData aCharcterData(name, hp, maxSkill);
 
 		// reading skills into CharcterData's skill
 		for (int j = 0; j < allCapableSkills; j++)
 		{
 			string skillInfor;
 			getline(file, skillInfor);
-			
+
 			// enter a line of skill info to new a CaracterSkill 
 			//and push into CharcterData's skill
 			CaracterSkill aSkill = CaracterSkill(skillInfor);
@@ -61,7 +62,7 @@ void GloomHaven::draw()
 	for (int i = 0; i < this->map.width; i++) {
 		for (int j = 0; j < this->map.height; j++)
 		{
-			cout<<this->map.board[i][j];
+			cout << this->map.board[i][j];
 		}
 		cout << endl;
 	}
