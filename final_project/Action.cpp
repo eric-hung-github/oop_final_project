@@ -20,6 +20,11 @@ void ActRest::execute(Being being)
 {
 }
 
+Action::Action(int point)
+{
+	this->point = point;
+}
+
 void Action::execute(Being being)
 {
 }

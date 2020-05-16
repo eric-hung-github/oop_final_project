@@ -6,7 +6,7 @@
 
 using namespace std;
 
-vector<Action*> enterAction(stringstream infor);
+//vector<Action*> enterAction(stringstream infor);
 
 class CaracterSkill :public Skill
 {

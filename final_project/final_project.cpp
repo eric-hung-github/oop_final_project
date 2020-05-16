@@ -51,5 +51,7 @@ int main()
 
         // is other trigger ex open door all dead 
 
+
+        break;
     }
 }
