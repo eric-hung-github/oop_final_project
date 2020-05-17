@@ -3,6 +3,7 @@
 // attack
 void ActAttack::execute(Being being)
 {
+
 }
 
 // sheild

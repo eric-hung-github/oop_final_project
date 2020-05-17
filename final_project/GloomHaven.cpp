@@ -22,25 +22,21 @@ bool GloomHaven::loadCharcterData(string fileName)
 	{
 		// new a CharcterData with name hp maxSkill
 		string name="";
-		char cName[100];
 		int hp, maxSkill, allCapableSkills;
 
 		file >> name;
 		file >> hp >> maxSkill >> allCapableSkills;
+		file.ignore();
 
 		CharcterData aCharcterData(name, hp, maxSkill);
-		//CharcterData aCharcterData;
-
 
 		// reading skills into CharcterData's skill
 		for (int j = 0; j < allCapableSkills; j++)
 		{
 			string skillInfor;
-			file.ignore();
 			getline(file, skillInfor);
 
 			// enter a line of skill info to new a CaracterSkill 
-			//and push into CharcterData's skill
 			CaracterSkill aSkill = CaracterSkill(skillInfor);
 			aCharcterData.skills.push_back(aSkill);
 		}
@@ -57,6 +53,7 @@ bool GloomHaven::loadMonsterDatas(string fileName)
 
 void GloomHaven::chooseCharcters()
 {
+
 }
 
 void GloomHaven::draw()

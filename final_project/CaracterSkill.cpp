@@ -18,12 +18,12 @@ CaracterSkill::CaracterSkill(string information)
 
 void enterAction(stringstream& infor, vector<Action*>& actions)
 {
-	string actType="";
-	int point=0;
+	string actType = "";
+	int point = 0;
 	if (!(infor >> actType >> point)) {
 		return;
 	}
-	
+
 
 	Action* act = nullptr;
 
@@ -33,22 +33,20 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 	}
 	else if (actType == "attack") {
 
-		string nextActType = "";
-		int nextPoint = 0;
+		string nextActType, tempLine;
+		int nextPoint;
 		infor >> nextActType >> nextPoint;
 
 		// is enter rangeer attack
 		if (nextActType == "range") {
+
 			act = &ActAttack::ActAttack(point, nextPoint);
 		}
 		else {
 			act = &ActAttack::ActAttack(point, 0);
 
 			// add back string 
-			string tempStr=infor.str();
-			getline(infor, tempStr);
-			tempStr = nextActType + ' ' + to_string(nextPoint) + ' ' + tempStr;
-			infor = stringstream(tempStr);
+
 		}
 
 	}
@@ -62,5 +60,6 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 		act = &ActMove::ActMove(point);
 	}
 
+	actions.push_back(act);
 	enterAction(infor, actions);
 }

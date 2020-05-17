@@ -1,4 +1,13 @@
-﻿#include <iostream>
+﻿
+//------------------------------------
+// 2020 5 17
+// 
+// unfinish:
+//      1. read skill when range after attack
+//
+//------------------------------------
+
+#include <iostream>
 #include <string>
 
 #include "GloomHaven.h"
@@ -31,9 +40,10 @@ string charcterFileName = "charcter.txt";
 int main()
 {
     GloomHaven game;
-    game.map.loadBoard(mapFileName);
     game.loadCharcterData(charcterFileName);
+    game.map.loadBoard(mapFileName);
 
+    game.chooseCharcters();
     //
     game.draw();
     // loading all data

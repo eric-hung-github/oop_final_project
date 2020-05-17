@@ -26,15 +26,19 @@ public:
 
 	MapData map;
 
-	// load all data into this
-	bool loadMap();
+	// constructor
+
+	// load data
 	bool loadCharcterData(string fileName);
 	bool loadMonsterDatas(string fileName);
 
 	// choose characters into Characters from CharcterDatas
 	void chooseCharcters();
 
+	// draw board
 	void draw();
+
+	
 };
 
 
