@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include "GloomHaven.h"
 #include "CaracterSkill.h"
@@ -8,9 +9,7 @@ using namespace std;
 
 bool GloomHaven::loadCharcterData(string fileName)
 {
-	//ifstream file = ifstream(fileName);
-	fstream file;
-	file.open(fileName, ios::in);
+	ifstream file = ifstream(fileName);
 	if (!file.is_open()) {
 		cout << "open file " << fileName << " error!" << endl;
 		return false;
@@ -23,7 +22,8 @@ bool GloomHaven::loadCharcterData(string fileName)
 	for (int i = 0; i < CharcterDataCount; i++)
 	{
 		// new a CharcterData with name hp maxSkill
-		string name = "";
+		stringstream basicInfor;
+		string name ;
 		int hp, maxSkill, allCapableSkills;
 
 		file.ignore();

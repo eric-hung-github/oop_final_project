@@ -45,7 +45,7 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 			*act = ActAttack::ActAttack(point, 0);
 
 			// add back string 
-			string temp="";
+			string temp;
 			getline(infor, temp);
 			temp = nextActType + ' ' + to_string(nextPoint) + ' ' + temp;
 			infor = stringstream(temp);
