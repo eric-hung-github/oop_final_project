@@ -8,9 +8,9 @@ using namespace std;
 
 bool GloomHaven::loadCharcterData(string fileName)
 {
-	// open file
-	ifstream file;
-	file = ifstream(fileName);
+	//ifstream file = ifstream(fileName);
+	fstream file;
+	file.open(fileName, ios::in);
 	if (!file.is_open()) {
 		cout << "open file " << fileName << " error!" << endl;
 		return false;
@@ -26,10 +26,13 @@ bool GloomHaven::loadCharcterData(string fileName)
 		string name = "";
 		int hp, maxSkill, allCapableSkills;
 
+		file.ignore();
 		file >> name;
 		file >> hp >> maxSkill >> allCapableSkills;
 
 		CharcterData aCharcterData(name, hp, maxSkill);
+		//CharcterData aCharcterData;
+
 
 		// reading skills into CharcterData's skill
 		for (int j = 0; j < allCapableSkills; j++)

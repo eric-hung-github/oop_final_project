@@ -15,6 +15,7 @@ public:
 	vector<CaracterSkill> skills;
 	int maxSkill;
 
+	CharcterData();
 	CharcterData(string name, int hp, int maxSkill);
 
 };
