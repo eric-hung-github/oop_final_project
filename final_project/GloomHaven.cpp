@@ -8,7 +8,7 @@ using namespace std;
 
 bool GloomHaven::loadCharcterData(string fileName)
 {
-	ifstream file = ifstream(fileName);
+	ifstream file(fileName);
 	if (!file.is_open()) {
 		cout << "open file " << fileName << " error!" << endl;
 		return false;

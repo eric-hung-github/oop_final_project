@@ -31,7 +31,7 @@ string charcterFileName = "charcter.txt";
 int main()
 {
     GloomHaven game;
-    game.map.loadBoard(mapFileName);
+    //game.map.loadBoard(mapFileName);
     game.loadCharcterData(charcterFileName);
 
     //
