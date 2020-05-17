@@ -24,6 +24,6 @@ bool MapData::loadBoard(string fileName)
 		}
 	}
 
-	//mapFile.close();
+	mapFile.close();
 	return true;
 }

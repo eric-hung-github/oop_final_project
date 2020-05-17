@@ -25,7 +25,7 @@ bool GloomHaven::loadCharcterData(string fileName)
 		char cName[100];
 		int hp, maxSkill, allCapableSkills;
 
-		file >> cName;
+		file >> name;
 		file >> hp >> maxSkill >> allCapableSkills;
 
 		CharcterData aCharcterData(name, hp, maxSkill);
@@ -36,6 +36,7 @@ bool GloomHaven::loadCharcterData(string fileName)
 		for (int j = 0; j < allCapableSkills; j++)
 		{
 			string skillInfor;
+			file.ignore();
 			getline(file, skillInfor);
 
 			// enter a line of skill info to new a CaracterSkill 
