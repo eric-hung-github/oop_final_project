@@ -39,27 +39,27 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 
 		// is enter rangeer attack
 		if (nextActType == "range") {
-			*act = ActAttack::ActAttack(point, nextPoint);
+			act = &ActAttack::ActAttack(point, nextPoint);
 		}
 		else {
-			*act = ActAttack::ActAttack(point, 0);
+			act = &ActAttack::ActAttack(point, 0);
 
 			// add back string 
-			string temp;
-			getline(infor, temp);
-			temp = nextActType + ' ' + to_string(nextPoint) + ' ' + temp;
-			infor = stringstream(temp);
+			string tempStr;
+			getline(infor, tempStr);
+			tempStr = nextActType + ' ' + to_string(nextPoint) + ' ' + tempStr;
+			infor = stringstream(tempStr);
 		}
 
 	}
 	else if (actType == "heal") {
-		*act = ActHeal::ActHeal(point);
+		act = &ActHeal::ActHeal(point);
 	}
 	else if (actType == "shield") {
-		*act = ActSheild::ActSheild(point);
+		act = &ActSheild::ActSheild(point);
 	}
 	else if (actType == "move") {
-		*act = ActMove::ActMove(point);
+		act = &ActMove::ActMove(point);
 	}
 
 	enterAction(infor, actions);

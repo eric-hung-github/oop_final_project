@@ -7,23 +7,23 @@ using namespace std;
 
 bool MapData::loadBoard(string fileName)
 {
-	ifstream file=ifstream(fileName);
-	if (!file.is_open()) {
+	ifstream mapFile(fileName);
+	if (!mapFile.is_open()||!mapFile) {
 		cout << "open file " << fileName << " error!" << endl;
 		return false;
 	}
 
-	file >> this->width >> this->height;
+	mapFile >> this->width >> this->height;
 
 	this->board = new char* [this->height];
 	for (int i = 0; i < this->width; i++) {
 		this->board[i] = new char[this->width];
 		for (int  j = 0; j < this->height; j++)
 		{
-			file >> board[i][j];
+			mapFile >> board[i][j];
 		}
 	}
 
-	file.close();
+	//mapFile.close();
 	return true;
 }

@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
 
 #include "GloomHaven.h"
 #include "CaracterSkill.h"
@@ -22,12 +21,11 @@ bool GloomHaven::loadCharcterData(string fileName)
 	for (int i = 0; i < CharcterDataCount; i++)
 	{
 		// new a CharcterData with name hp maxSkill
-		stringstream basicInfor;
-		string name ;
+		string name="";
+		char cName[100];
 		int hp, maxSkill, allCapableSkills;
 
-		file.ignore();
-		file >> name;
+		file >> cName;
 		file >> hp >> maxSkill >> allCapableSkills;
 
 		CharcterData aCharcterData(name, hp, maxSkill);
