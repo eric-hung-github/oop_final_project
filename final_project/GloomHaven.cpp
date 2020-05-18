@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "GloomHaven.h"
+#include "CharcterData.h"
 #include "CaracterSkill.h"
 
 using namespace std;
@@ -53,7 +54,27 @@ bool GloomHaven::loadMonsterDatas(string fileName)
 
 void GloomHaven::chooseCharcters()
 {
+	int charcterNum = 0;
+	cin >> charcterNum;
 
+	for (int i = 0; i < charcterNum; i++) {
+
+		string characterName;
+		cin >> characterName;
+
+		for (auto character : this->CharcterDatas) {
+			if (characterName == character.name) {
+
+				int *skillsNum=new int[character.maxSkill];
+				for (int i = 0; i < character.maxSkill; i++) {
+					cin >> skillsNum[i];
+				}
+
+				Character newCharacter(character,skillsNum);
+				this->Characters.push_back(newCharacter);
+			}
+		}
+	}
 }
 
 void GloomHaven::draw()

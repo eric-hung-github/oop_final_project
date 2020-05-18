@@ -5,8 +5,8 @@ using namespace std;
 
 class BeingData
 {
-protected:
-	int health;
+public:
+	int hp, atk, def, sheild;
 	string	name;
 };
 

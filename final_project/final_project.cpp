@@ -36,23 +36,27 @@ using namespace std;
 
 string mapFileName = "map.txt";
 string charcterFileName = "charcter.txt";
+string monsterFileName = "monster.txt";
 
 int main()
 {
     GloomHaven game;
+    // Loading charcter
     game.loadCharcterData(charcterFileName);
+    // Loading monster
+    game.loadMonsterDatas(monsterFileName);
+    // Loading map
     game.map.loadBoard(mapFileName);
 
     game.chooseCharcters();
     //
     game.draw();
-    // loading all data
 
     // choose charcter
 
     // choose maze
 
-    while (true)
+    while (true)//game loop
     {
         // charcter choose skills
 
