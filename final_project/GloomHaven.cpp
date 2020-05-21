@@ -50,6 +50,7 @@ bool GloomHaven::loadCharcterData(string fileName)
 
 	file.close();
 
+	/*----teset------
 	for (auto charcterData : this->CharcterDatas) {
 		cout << charcterData.name<<endl;
 		for (auto skill : charcterData.skills) {
@@ -60,18 +61,7 @@ bool GloomHaven::loadCharcterData(string fileName)
 			cout << endl;
 		}
 	}
-
-
-
-	//----teset------
-
-
-
-
-
-
-
-
+	*/
 	return true;
 }
 

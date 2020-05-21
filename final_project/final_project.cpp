@@ -42,11 +42,11 @@ int main()
 {
 	GloomHaven game;
 	// Loading charcter
-	game.loadCharcterData(charcterFileName);
+	game.loadCharcterData(charcterFileName);//ok
 	// Loading monster
-	game.loadMonsterDatas(monsterFileName);
+	game.loadMonsterDatas(monsterFileName);// yubin
 	// Loading map
-	game.map = MapData(mapFileName);
+	game.map = MapData(mapFileName);//ok
 
 	// choose charcter
 	game.chooseCharcters();

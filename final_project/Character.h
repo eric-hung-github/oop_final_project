@@ -12,7 +12,7 @@ class Character :public Being
 public:
 	vector<CaracterSkill> skills;
 
-	Character(CharcterData cdata,int skillsNum[]);
+	Character(CharcterData &cdata,int skillsNum[]);
 
 	void move();
 	void attack();
