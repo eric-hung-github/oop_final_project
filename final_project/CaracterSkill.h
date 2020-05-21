@@ -11,10 +11,11 @@ void enterAction(stringstream &infor, vector<Action*> &actions);
 
 class CaracterSkill :public Skill
 {
+public:
 	vector<Action*>upAct;
 	vector<Action*>downAct;
 
-public:
+
 	CaracterSkill(string information);
 
 };

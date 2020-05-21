@@ -1,9 +1,11 @@
 #include <string>
 #include <sstream>
+#include <iostream>
 
 #include "CaracterSkill.h"
 #include "Action.h"
 
+using namespace std;
 
 CaracterSkill::CaracterSkill(string information)
 {
@@ -20,44 +22,52 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 {
 	string actType = "";
 	int point = 0;
-	if (!(infor >> actType >> point)) {
+	if (!(infor >> actType)) {
 		return;
 	}
 
 
-	Action* act = nullptr;
+	Action* act;
 
 
 	if (actType == "-") {
+
 		return;
 	}
 	else if (actType == "attack") {
+		infor >> point;
 
 		string nextActType, tempLine;
-		int nextPoint;
-		infor >> nextActType >> nextPoint;
+		int nextPoint = 0;
+		infor >> nextActType;
 
 		// is enter rangeer attack
 		if (nextActType == "range") {
-
-			act = &ActAttack::ActAttack(point, nextPoint);
+			infor >> nextPoint;
+			act = new ActAttack(point, nextPoint);
 		}
 		else {
-			act = &ActAttack::ActAttack(point, 0);
+			act = new ActAttack(point, 0);
 
 			// add back string 
-
+			string temp;
+			getline(infor, temp);
+			temp = nextActType + temp;
+			infor = stringstream(temp);
 		}
 
 	}
 	else if (actType == "heal") {
-		act = &ActHeal::ActHeal(point);
+		infor >> point;
+		act = new ActHeal(point);
 	}
 	else if (actType == "shield") {
-		act = &ActSheild::ActSheild(point);
+		infor >> point;
+		act = new ActSheild(point);
 	}
 	else if (actType == "move") {
-		act = &ActMove::ActMove(point);
+		infor >> point;
+		act = new ActMove(point);
 	}
 
 	actions.push_back(act);

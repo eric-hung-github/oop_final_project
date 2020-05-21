@@ -4,7 +4,7 @@ using namespace std;
 
 class Skill
 {
-protected:
+public:
 	int number;
 	int sp;
 };

@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+#include "Postition.h"
+#include "MonsterSkill.h"
 #include "Being.h"
 
 using namespace std;

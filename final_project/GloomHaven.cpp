@@ -7,6 +7,8 @@
 #include "CaracterSkill.h"
 #include "Monster.h"
 
+#include "CaracterSkill.h"
+
 using namespace std;
 
 bool GloomHaven::loadCharcterData(string fileName)
@@ -43,9 +45,33 @@ bool GloomHaven::loadCharcterData(string fileName)
 			CaracterSkill aSkill = CaracterSkill(skillInfor);
 			aCharcterData.skills.push_back(aSkill);
 		}
+		this->CharcterDatas.push_back(aCharcterData);
 	}
 
 	file.close();
+
+	for (auto charcterData : this->CharcterDatas) {
+		cout << charcterData.name<<endl;
+		for (auto skill : charcterData.skills) {
+			cout <<"num "<< skill.number <<"sp "<< skill.sp;
+			for (auto act : skill.upAct) {
+				cout <<" point "<< act->point;
+			}
+			cout << endl;
+		}
+	}
+
+
+
+	//----teset------
+
+
+
+
+
+
+
+
 	return true;
 }
 
@@ -125,7 +151,7 @@ void GloomHaven::generateMonster()
 				this->Monsters.push_back(monster);
 			}
 		}
-		
+
 	}
 }
 

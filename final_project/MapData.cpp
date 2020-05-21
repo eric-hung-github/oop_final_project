@@ -9,6 +9,7 @@ using namespace std;
 
 MapData::MapData()
 {
+	
 }
 
 MapData::MapData(string fileName)
@@ -49,8 +50,7 @@ MapData::MapData(string fileName)
 		this->intialPositions.push_back(pos);
 	}
 
-	// input generations information of Monster
-
+	// input generations information of Monsters
 	int generCount=0;
 	mapFile >> generCount;
 	mapFile.ignore();

@@ -16,7 +16,7 @@
 #define ACT_STRUCT
 struct act
 {
-	Being being;
+	Being *being;
 	vector<Action> actions;
 };
 #endif

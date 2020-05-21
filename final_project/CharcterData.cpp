@@ -8,13 +8,13 @@ using namespace std;
 CharcterData::CharcterData()
 {
 	this->name = "";
-	this->health = 0;
+	this->hp = 0;
 	this->maxSkill = 0;
 }
 
 CharcterData::CharcterData(string name, int hp, int maxSkill)
 {
 	this->name = name;
-	this->health = hp;
+	this->hp = hp;
 	this->maxSkill = maxSkill;
 }
