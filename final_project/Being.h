@@ -6,7 +6,7 @@ using namespace std;
 
 class Being
 {
-protected:
+public:
 	string name;
 	int hp;
 

@@ -84,17 +84,14 @@ void GloomHaven::chooseCharcters()
 
 void GloomHaven::generateMonster()
 {
-
-}
-
-void GloomHaven::chooseIntialPos()
-{
 	for (int i = 0; i < this->map.monsterGenerInfor.size(); i++)
 	{
+		// reading generateInformation
 		stringstream generateInfor(this->map.monsterGenerInfor[i]);
 		string	name;
 		int posX, posY, level[3];
 
+		// 
 		generateInfor >> name >> posX >> posY;
 		for (int i = 0; i < 3; i++)
 		{
@@ -122,10 +119,19 @@ void GloomHaven::chooseIntialPos()
 				}
 				monster = Monster(hp, atk, range);
 				monster.skills = monsterData.skills;
+				monster.name = name;
+				monster.pos = Postition(posX, posY);
 
+				this->Monsters.push_back(monster);
 			}
 		}
+		
 	}
+}
+
+void GloomHaven::chooseIntialPos()
+{
+
 }
 
 void GloomHaven::charactersTurn()
