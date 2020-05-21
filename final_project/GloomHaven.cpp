@@ -67,6 +67,41 @@ bool GloomHaven::loadCharcterData(string fileName)
 
 bool GloomHaven::loadMonsterDatas(string fileName)
 {
+	ifstream file;
+	file.open(fileName);
+	if (!file.is_open())
+	{
+		cout << "Open file error." << endl;
+		return false;
+	}
+
+
+	int MonsterDataCount;
+	file >> MonsterDataCount;
+	for (int i = 0; i < MonsterDataCount; i++)
+	{
+		string name;
+		int data[6] = { 0 };
+		file >> name;
+		for (int i = 0; i < 6; i++)
+		{
+			file >> data[i];
+		}
+		file.ignore();
+
+		MonsterData aMonsterdata(name, data);
+
+		for (int j = 0; j < 6; j++)
+		{
+			string skillInfor;
+			getline(file, skillInfor);
+
+
+
+
+		}
+	}
+
 	return true;
 }
 

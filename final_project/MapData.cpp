@@ -57,7 +57,7 @@ MapData::MapData(string fileName)
 
 	for (int i = 0; i < generCount; i++)
 	{
-		string generateInforStr;
+		string generateInforStr="";
 		getline(mapFile, generateInforStr);
 		this->monsterGenerInfor.push_back(generateInforStr);
 	}
