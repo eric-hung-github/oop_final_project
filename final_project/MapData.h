@@ -1,10 +1,18 @@
 #pragma once
+#include <vector>
+#include <string>
+
+#include "Postition.h"
 
 using namespace std;
 
 class MapData
 {
 public:
+	
+	vector<Postition> intialPositions;
+
+	vector<string> monsterGenerInfor;
 
 	// data of board
 	int width;
@@ -17,6 +25,8 @@ public:
 	const static char block = '2';
 	const static char door = '3';
 
+	MapData();
+	MapData(string fileName);
 	bool loadBoard(string fileName);
 };
 

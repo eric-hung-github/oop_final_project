@@ -12,19 +12,29 @@
 
 #include <vector>
 
+#ifndef ACT_STRUCT
+#define ACT_STRUCT
+struct act
+{
+	Being being;
+	vector<Action> actions;
+};
+#endif
 
 using namespace std;
-
 
 class GloomHaven
 {
 public:
 	vector<CharcterData> CharcterDatas;
 	vector<MonsterData> MonsterDatas;
+
+	MapData map;
+
 	vector<Character> Characters;
 	vector<Monster> Monsters;
 
-	MapData map;
+	vector<act> acts;
 
 	// constructor
 
@@ -34,6 +44,18 @@ public:
 
 	// choose characters into Characters from CharcterDatas
 	void chooseCharcters();
+	void generateMonster();
+
+	// choose intial position
+	void chooseIntialPos();
+
+	// game loop
+	void charactersTurn();
+	void monstersTurn();
+
+
+
+	void updateGameState();
 
 	// draw board
 	void draw();

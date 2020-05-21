@@ -4,10 +4,12 @@ using namespace std;
 
 class Postition
 {
+public:
 	int x;
 	int y;
 
-public:
+
+	Postition();
 	Postition(int x, int y);
 };
 

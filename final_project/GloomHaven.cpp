@@ -59,12 +59,15 @@ void GloomHaven::chooseCharcters()
 
 	for (int i = 0; i < charcterNum; i++) {
 
+		// choose charcter by name
 		string characterName;
 		cin >> characterName;
 
+		
 		for (auto character : this->CharcterDatas) {
+			// find character 
 			if (characterName == character.name) {
-
+				// choose skills
 				int *skillsNum=new int[character.maxSkill];
 				for (int i = 0; i < character.maxSkill; i++) {
 					cin >> skillsNum[i];
@@ -75,6 +78,24 @@ void GloomHaven::chooseCharcters()
 			}
 		}
 	}
+}
+
+void GloomHaven::generateMonster()
+{
+
+}
+
+void GloomHaven::chooseIntialPos()
+{
+}
+
+void GloomHaven::charactersTurn()
+{
+}
+
+void GloomHaven::monstersTurn()
+{
+
 }
 
 void GloomHaven::draw()
