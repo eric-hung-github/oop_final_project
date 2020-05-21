@@ -8,7 +8,7 @@ class Being
 {
 protected:
 	string name;
-	int hp, atk, def, sheild;
+	int hp;
 
 };
 

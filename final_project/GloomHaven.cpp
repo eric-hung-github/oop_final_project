@@ -1,9 +1,11 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include "GloomHaven.h"
 #include "CharcterData.h"
 #include "CaracterSkill.h"
+#include "Monster.h"
 
 using namespace std;
 
@@ -22,7 +24,7 @@ bool GloomHaven::loadCharcterData(string fileName)
 	for (int i = 0; i < CharcterDataCount; i++)
 	{
 		// new a CharcterData with name hp maxSkill
-		string name="";
+		string name = "";
 		int hp, maxSkill, allCapableSkills;
 
 		file >> name;
@@ -63,17 +65,17 @@ void GloomHaven::chooseCharcters()
 		string characterName;
 		cin >> characterName;
 
-		
+
 		for (auto character : this->CharcterDatas) {
 			// find character 
 			if (characterName == character.name) {
 				// choose skills
-				int *skillsNum=new int[character.maxSkill];
+				int* skillsNum = new int[character.maxSkill];
 				for (int i = 0; i < character.maxSkill; i++) {
 					cin >> skillsNum[i];
 				}
 
-				Character newCharacter(character,skillsNum);
+				Character newCharacter(character, skillsNum);
 				this->Characters.push_back(newCharacter);
 			}
 		}
@@ -87,6 +89,43 @@ void GloomHaven::generateMonster()
 
 void GloomHaven::chooseIntialPos()
 {
+	for (int i = 0; i < this->map.monsterGenerInfor.size(); i++)
+	{
+		stringstream generateInfor(this->map.monsterGenerInfor[i]);
+		string	name;
+		int posX, posY, level[3];
+
+		generateInfor >> name >> posX >> posY;
+		for (int i = 0; i < 3; i++)
+		{
+			generateInfor >> level[i];
+		}
+
+		// if no nedd to generate
+		if (level[this->Characters.size() - 2] == 0) {
+			continue;
+		}
+
+		for (auto monsterData : this->MonsterDatas) {
+			if (monsterData.name == name) {
+				Monster monster;
+				int hp, atk, range;
+				if (level[this->Characters.size() - 2] == 1) {
+					hp = monsterData.hp;
+					atk = monsterData.atk;
+					range = monsterData.range;
+				}
+				else {
+					hp = monsterData.bossHp;
+					atk = monsterData.bossAtk;
+					range = monsterData.bossRange;
+				}
+				monster = Monster(hp, atk, range);
+				monster.skills = monsterData.skills;
+
+			}
+		}
+	}
 }
 
 void GloomHaven::charactersTurn()

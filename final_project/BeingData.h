@@ -6,7 +6,7 @@ using namespace std;
 class BeingData
 {
 public:
-	int hp, atk, def, sheild;
+	int hp;
 	string	name;
 };
 
