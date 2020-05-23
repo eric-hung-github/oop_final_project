@@ -10,6 +10,6 @@ public:
 	vector<Action*> act;
 	bool redraw;
 
-
+	MonsterSkill(string infor);
 };
 

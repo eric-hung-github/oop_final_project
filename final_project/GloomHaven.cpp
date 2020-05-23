@@ -97,7 +97,8 @@ bool GloomHaven::loadMonsterDatas(string fileName)
 			getline(file, skillInfor);
 
 
-
+			MonsterSkill aSkill = MonsterSkill(skillInfor);
+			aMonsterdata.skills.push_back(aSkill);
 
 		}
 	}
