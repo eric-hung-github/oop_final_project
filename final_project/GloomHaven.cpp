@@ -50,18 +50,17 @@ bool GloomHaven::loadCharcterData(string fileName)
 
 	file.close();
 
+
+
 	/*----teset------
 	for (auto charcterData : this->CharcterDatas) {
-		cout << charcterData.name<<endl;
+		cout << charcterData.name << endl;
 		for (auto skill : charcterData.skills) {
-			cout <<"num "<< skill.number <<"sp "<< skill.sp;
-			for (auto act : skill.upAct) {
-				cout <<" point "<< act->point;
-			}
-			cout << endl;
+			skill.printSkill();
 		}
 	}
 	*/
+
 	return true;
 }
 
@@ -99,9 +98,27 @@ bool GloomHaven::loadMonsterDatas(string fileName)
 
 			MonsterSkill aSkill = MonsterSkill(skillInfor);
 			aMonsterdata.skills.push_back(aSkill);
+		}
 
+		this->MonsterDatas.push_back(aMonsterdata);
+	}
+
+
+	for (auto monsterData : this->MonsterDatas) {
+		cout << monsterData.name << endl;
+		for (auto skill : monsterData.skills) {
+			skill.printSkill();
 		}
 	}
+
+	/*----teset------
+	for (auto charcterData : this->CharcterDatas) {
+		cout << charcterData.name << endl;
+		for (auto skill : charcterData.skills) {
+			skill.printSkill();
+		}
+	}
+	*/
 
 	return true;
 }

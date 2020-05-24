@@ -2,22 +2,36 @@
 
 #include "MonsterSkill.h"
 
+bool enterAction(stringstream& infor, vector<Action*>& actions);
+
 MonsterSkill::MonsterSkill(string information)
 {
 	// enter skill's number and speedPoint
 	stringstream infor = stringstream(information);
+	string emptyName;
+	infor >> emptyName;
 	infor >> this->number;
 	infor >> this->sp;
 
-	enterAction(infor, this->act);
+	this->redraw = enterAction(infor, this->act);
 }
 
-void enterAction(stringstream& infor, vector<Action*>& actions)
+void MonsterSkill::printSkill()
+{
+	cout << this->number << " " << this->sp;
+	for (auto act : this->act) {
+		act->printAct();
+	}
+
+	cout << endl;
+}
+
+bool enterAction(stringstream& infor, vector<Action*>& actions)
 {
 	string actType = "";
 	int point = 0;
 	if (!(infor >> actType)) {
-		return;
+		return false;
 	}
 
 
@@ -25,13 +39,11 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 
 
 	if (actType == "r") {
-
-		return;
+		return true;
 	}
-	else if(actType == "d")
+	else if (actType == "d")
 	{
-		 
-		return;
+		return false;
 	}
 	else if (actType == "attack") {
 		infor >> point;
@@ -65,8 +77,10 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 		act = new ActSheild(point);
 	}
 	else if (actType == "move") {
-		infor >> point;
-		act = new ActMove(point);
+		//infor >> point;
+		string steps;
+		infor >> steps;
+		act = new ActMove(0,steps);
 	}
 
 	actions.push_back(act);

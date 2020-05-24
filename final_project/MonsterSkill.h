@@ -11,5 +11,6 @@ public:
 	bool redraw;
 
 	MonsterSkill(string infor);
+	void printSkill();
 };
 

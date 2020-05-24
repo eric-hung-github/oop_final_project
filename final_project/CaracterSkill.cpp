@@ -18,6 +18,21 @@ CaracterSkill::CaracterSkill(string information)
 	enterAction(infor, this->downAct);
 }
 
+void CaracterSkill::printSkill()
+{
+	cout << this->number << " " << this->sp;
+
+	for (auto act : this->upAct) {
+		act->printAct();
+	}
+
+	for (auto act : this->downAct) {
+		act->printAct();
+	}
+
+	cout << endl;
+}
+
 void enterAction(stringstream& infor, vector<Action*>& actions)
 {
 	string actType = "";

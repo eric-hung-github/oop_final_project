@@ -11,6 +11,12 @@ void ActSheild::execute(Being being)
 {
 }
 
+ActMove::ActMove(int point,string steps)
+{
+	this->point = 0;
+	this->steps = steps;
+}
+
 // move
 void ActMove::execute(Being being)
 {
@@ -24,6 +30,11 @@ void ActHeal::execute(Being being)
 // long rest
 void ActRest::execute(Being being)
 {
+}
+
+Action::Action()
+{
+	this->point = 0;
 }
 
 Action::Action(int point)

@@ -44,7 +44,7 @@ int main()
 	// Loading charcter
 	game.loadCharcterData(charcterFileName);//ok
 	// Loading monster
-	game.loadMonsterDatas(monsterFileName);// yubin
+	game.loadMonsterDatas(monsterFileName);//ok
 	// Loading map
 	game.map = MapData(mapFileName);//ok
 

@@ -18,4 +18,5 @@ public:
 
 	CaracterSkill(string information);
 
+	void printSkill();
 };
