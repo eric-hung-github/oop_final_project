@@ -50,8 +50,6 @@ bool GloomHaven::loadCharcterData(string fileName)
 
 	file.close();
 
-
-
 	/*----teset------
 	for (auto charcterData : this->CharcterDatas) {
 		cout << charcterData.name << endl;
@@ -103,14 +101,6 @@ bool GloomHaven::loadMonsterDatas(string fileName)
 		this->MonsterDatas.push_back(aMonsterdata);
 	}
 
-
-	for (auto monsterData : this->MonsterDatas) {
-		cout << monsterData.name << endl;
-		for (auto skill : monsterData.skills) {
-			skill.printSkill();
-		}
-	}
-
 	/*----teset------
 	for (auto charcterData : this->CharcterDatas) {
 		cout << charcterData.name << endl;
@@ -134,19 +124,26 @@ void GloomHaven::chooseCharcters()
 		string characterName;
 		cin >> characterName;
 
-
-		for (auto character : this->CharcterDatas) {
+		for (auto characterData : this->CharcterDatas) {
 			// find character 
-			if (characterName == character.name) {
+			if (characterName == characterData.name) {
 				// choose skills
-				int* skillsNum = new int[character.maxSkill];
-				for (int i = 0; i < character.maxSkill; i++) {
+				int* skillsNum = new int[characterData.maxSkill];
+				for (int i = 0; i < characterData.maxSkill; i++) {
 					cin >> skillsNum[i];
 				}
 
-				Character newCharacter(character, skillsNum);
+				Character newCharacter(characterData, skillsNum);
 				this->Characters.push_back(newCharacter);
+				break;
 			}
+		}
+	}
+
+	for (auto charcter : this->Characters) {
+		cout << charcter.name << endl;
+		for (auto skill : charcter.skills) {
+			skill.printSkill();
 		}
 	}
 }
@@ -196,6 +193,14 @@ void GloomHaven::generateMonster()
 		}
 
 	}
+
+	for (auto monster : this->Monsters) {
+		cout << monster.name << endl;
+		for (auto skill : monster.skills) {
+			skill.printSkill();
+		}
+	}
+
 }
 
 void GloomHaven::chooseIntialPos()
