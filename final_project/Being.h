@@ -8,7 +8,7 @@ class Being
 {
 public:
 	string name;
-	int hp;
+	int hp,maxHp;
 
 };
 

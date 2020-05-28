@@ -3,7 +3,7 @@
 // 2020 5 17
 // 
 // unfinish:
-//      1. read skill when range after attack
+//      
 //
 //------------------------------------
 
@@ -38,22 +38,28 @@ string mapFileName = "map.txt";
 string charcterFileName = "charcter.txt";
 string monsterFileName = "monster.txt";
 
+string isPlay;
+
 int main()
 {
+	cin >> isPlay;
+
 	GloomHaven game;
 	// Loading charcter
 	game.loadCharcterData(charcterFileName);//ok
 	// Loading monster
 	game.loadMonsterDatas(monsterFileName);//ok
-	// Loading map
-	game.map = MapData(mapFileName);//ok
 
 	// choose charcter
-	game.chooseCharcters();
+	game.chooseCharcters();//ok
+	// Loading map
+	game.map = MapData(mapFileName);//ok
 	// generate Monster by mapfile
 	game.generateMonster();
+
 	//
 	game.chooseIntialPos();
+
 
 	while (true)//game loop
 	{

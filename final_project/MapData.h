@@ -28,5 +28,7 @@ public:
 	MapData();
 	MapData(string fileName);
 	bool loadBoard(string fileName);
+
+
 };
 

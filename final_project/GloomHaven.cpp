@@ -210,6 +210,7 @@ void GloomHaven::chooseIntialPos()
 
 void GloomHaven::charactersTurn()
 {
+
 }
 
 void GloomHaven::monstersTurn()
