@@ -42,11 +42,11 @@ MapData::MapData(string fileName)
 	getline(mapFile, intialPosStr);
 	intialPosSs = stringstream(intialPosStr);
 
-	Postition pos;
+	Position pos;
 	int posX, posY;
 	while (intialPosSs>> posX >> posY)
 	{
-		pos = Postition(posX, posY);
+		pos = Position(posX, posY);
 		this->intialPositions.push_back(pos);
 	}
 
@@ -70,4 +70,12 @@ bool MapData::loadBoard(string fileName)
 {
 
 	return true;
+}
+
+bool MapData::isIntialPos(Position pos)
+{
+	for (auto p : this->intialPositions) {
+		if (p == pos) { return true; }
+	}
+	return false;
 }

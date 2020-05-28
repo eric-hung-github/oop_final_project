@@ -34,11 +34,12 @@ using namespace std;
 // ALL FUNCTION
 //------------------------------------
 
-string mapFileName = "map.txt";
+//string mapFileName = "map.txt";
 string charcterFileName = "charcter.txt";
 string monsterFileName = "monster.txt";
 
 string isPlay;
+string mapFileName;
 
 int main()
 {
@@ -52,6 +53,9 @@ int main()
 
 	// choose charcter
 	game.chooseCharcters();//ok
+
+	cin >> mapFileName;
+
 	// Loading map
 	game.map = MapData(mapFileName);//ok
 	// generate Monster by mapfile

@@ -100,8 +100,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="map.txt" />
     <Text Include="charcter.txt" />
     <Text Include="monster.txt" />
+    <Text Include="map1.txt" />
   </ItemGroup>
 </Project>

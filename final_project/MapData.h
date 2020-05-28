@@ -10,7 +10,7 @@ class MapData
 {
 public:
 	
-	vector<Postition> intialPositions;
+	vector<Position> intialPositions;
 
 	vector<string> monsterGenerInfor;
 
@@ -29,6 +29,6 @@ public:
 	MapData(string fileName);
 	bool loadBoard(string fileName);
 
-
+	bool isIntialPos(Position pos);
 };
 

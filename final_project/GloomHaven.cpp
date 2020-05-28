@@ -186,7 +186,7 @@ void GloomHaven::generateMonster()
 				monster = Monster(hp, atk, range);
 				monster.skills = monsterData.skills;
 				monster.name = name;
-				monster.pos = Postition(posX, posY);
+				monster.pos = Position(posX, posY);
 
 				this->Monsters.push_back(monster);
 			}
@@ -205,7 +205,23 @@ void GloomHaven::generateMonster()
 
 void GloomHaven::chooseIntialPos()
 {
+	for (auto& charcter : this->Characters) {
+		while (true)
+		{
+			string choosePosition;
+			cin >> choosePosition;
 
+			Position intialPos = this->map.intialPositions[1];// weird----
+			for (auto c : choosePosition) {
+				intialPos = intialPos + Position::direction(c);
+			}
+
+			if (this->map.isIntialPos(intialPos)) {
+				charcter.pos = intialPos;
+				break;
+			}
+		}
+	}
 }
 
 void GloomHaven::charactersTurn()
