@@ -25,6 +25,10 @@ void ActMove::execute(Being being)
 // heal
 void ActHeal::execute(Being being)
 {
+    if(being.hp+point<=being.maxhp)
+        being.hp+=point;
+    else
+        being.hp=being.maxhp;
 }
 
 // long rest
