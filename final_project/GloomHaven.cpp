@@ -140,12 +140,15 @@ void GloomHaven::chooseCharcters()
 		}
 	}
 
-	for (auto charcter : this->Characters) {
+	/*
+		for (auto charcter : this->Characters) {
 		cout << charcter.name << endl;
 		for (auto skill : charcter.skills) {
 			skill.printSkill();
 		}
 	}
+	*/
+
 }
 
 void GloomHaven::generateMonster()
@@ -194,12 +197,15 @@ void GloomHaven::generateMonster()
 
 	}
 
-	for (auto monster : this->Monsters) {
+	/*
+		for (auto monster : this->Monsters) {
 		cout << monster.name << endl;
 		for (auto skill : monster.skills) {
 			skill.printSkill();
 		}
 	}
+	*/
+
 
 }
 
@@ -211,7 +217,7 @@ void GloomHaven::chooseIntialPos()
 			string choosePosition;
 			cin >> choosePosition;
 
-			Position intialPos = this->map.intialPositions[1];// weird----
+			Position intialPos = this->map.intialPositions[3];// weird----
 			for (auto c : choosePosition) {
 				intialPos = intialPos + Position::direction(c);
 			}
@@ -231,7 +237,25 @@ void GloomHaven::charactersTurn()
 
 void GloomHaven::monstersTurn()
 {
+	for (auto &monster : this->Monsters) {
+		MonsterSkill skill = monster.skills[rand() % monster.skills.size()];
+		act newAct;
+		newAct.being = &monster;
+		for (auto act : skill.act) {
+			newAct.actions.push_back(*act);
+		}
+	}
+}
 
+void GloomHaven::execute()
+{
+
+	// one by one execute
+	for (auto act : this->acts) {
+		for (auto action : act.actions) {
+			action.execute(act.being);
+		}
+	}
 }
 
 void GloomHaven::draw()

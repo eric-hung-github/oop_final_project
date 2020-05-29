@@ -27,7 +27,12 @@ public:
 
 	MapData();
 	MapData(string fileName);
+
 	bool loadBoard(string fileName);
+
+	bool isValidPos(Position posO);//to judge wether valid
+
+	bool isVisiblePos(Position &posO, Position &posT);
 
 	bool isIntialPos(Position pos);
 };

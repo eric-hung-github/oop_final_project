@@ -1,13 +1,13 @@
 #include "Action.h"
 
 // attack
-void ActAttack::execute(Being being)
+void ActAttack::execute(Being *being)
 {
 
 }
 
 // sheild
-void ActSheild::execute(Being being)
+void ActSheild::execute(Being *being)
 {
 }
 
@@ -18,17 +18,17 @@ ActMove::ActMove(int point,string steps)
 }
 
 // move
-void ActMove::execute(Being being)
+void ActMove::execute(Being *being)
 {
 }
 
 // heal
-void ActHeal::execute(Being being)
+void ActHeal::execute(Being *being)
 {
 }
 
 // long rest
-void ActRest::execute(Being being)
+void ActRest::execute(Being *being)
 {
 }
 
@@ -43,6 +43,6 @@ Action::Action(int point)
 }
 
 // virtual function
-void Action::execute(Being being)
+void Action::execute(Being *being)
 {
 }

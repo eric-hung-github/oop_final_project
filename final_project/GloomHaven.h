@@ -52,7 +52,7 @@ public:
 	// game loop
 	void charactersTurn();
 	void monstersTurn();
-
+	void execute();
 
 
 	void updateGameState();

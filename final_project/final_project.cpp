@@ -61,8 +61,8 @@ int main()
 	// generate Monster by mapfile
 	game.generateMonster();
 
-	//
-	game.chooseIntialPos();
+	// 
+	game.chooseIntialPos();// ok
 
 
 	while (true)//game loop
@@ -72,8 +72,8 @@ int main()
 		// monster choose skills
 		game.monstersTurn();
 		// execute  action <being skill> sort by sp
-
-		// is other trigger ex open door all dead 
+		game.execute();
+		// is other trigger ex open door all dead
 
 		// is win or game over
 

@@ -9,7 +9,7 @@ using namespace std;
 
 MapData::MapData()
 {
-	
+
 }
 
 MapData::MapData(string fileName)
@@ -44,20 +44,20 @@ MapData::MapData(string fileName)
 
 	Position pos;
 	int posX, posY;
-	while (intialPosSs>> posX >> posY)
+	while (intialPosSs >> posX >> posY)
 	{
 		pos = Position(posX, posY);
 		this->intialPositions.push_back(pos);
 	}
 
 	// input generations information of Monsters
-	int generCount=0;
+	int generCount = 0;
 	mapFile >> generCount;
 	mapFile.ignore();
 
 	for (int i = 0; i < generCount; i++)
 	{
-		string generateInforStr="";
+		string generateInforStr = "";
 		getline(mapFile, generateInforStr);
 		this->monsterGenerInfor.push_back(generateInforStr);
 	}
@@ -70,6 +70,40 @@ bool MapData::loadBoard(string fileName)
 {
 
 	return true;
+}
+
+bool MapData::isValidPos(Position posO)
+{
+	if (posO.x >= 0 && posO.x < this->width && posO.y >= 0 && posO.y < this->height) {
+		return true;
+	}
+	return false;
+}
+
+bool MapData::isVisiblePos(Position &posO, Position &posT)
+{
+	if (posO == posT) { return true; }
+	if (isValidPos(posO+dirUp)) {
+		if (isVisiblePos(posO + dirUp, posT)) {
+			return true;
+		}
+	}
+	if (isValidPos(posO + dirDown)) {
+		if (isVisiblePos(posO + dirDown, posT)) {
+			return true;
+		}
+	}
+	if (isValidPos(posO + dirRight)) {
+		if (isVisiblePos(posO + dirRight, posT)) {
+			return true;
+		}
+	}
+	if (isValidPos(posO + dirLeft)) {
+		if (isVisiblePos(posO + dirLeft, posT)) {
+			return true;
+		}
+	}
+	return false;
 }
 
 bool MapData::isIntialPos(Position pos)
