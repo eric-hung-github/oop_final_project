@@ -7,8 +7,6 @@
 #include "CaracterSkill.h"
 #include "Monster.h"
 
-#include "CaracterSkill.h"
-
 using namespace std;
 
 bool GloomHaven::loadCharcterData(string fileName)
@@ -232,18 +230,23 @@ void GloomHaven::chooseIntialPos()
 
 void GloomHaven::charactersTurn()
 {
-
+	int totalTurns = this->Characters.size();
+	while (true)
+	{
+		break;
+	}
 }
 
 void GloomHaven::monstersTurn()
 {
-	for (auto &monster : this->Monsters) {
+	for (auto& monster : this->Monsters) {
 		MonsterSkill skill = monster.skills[rand() % monster.skills.size()];
 		act newAct;
 		newAct.being = &monster;
-		for (auto act : skill.act) {
-			newAct.actions.push_back(*act);
+		for (auto &act : skill.act) {
+			newAct.actions.push_back(act);
 		}
+		this->acts.push_back(newAct);
 	}
 }
 
@@ -251,9 +254,9 @@ void GloomHaven::execute()
 {
 
 	// one by one execute
-	for (auto act : this->acts) {
-		for (auto action : act.actions) {
-			action.execute(act.being);
+	for (auto& act : this->acts) {
+		for (auto& action : act.actions) {
+			action->execute(act.being);
 		}
 	}
 }

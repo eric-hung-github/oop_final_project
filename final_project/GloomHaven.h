@@ -17,7 +17,7 @@
 struct act
 {
 	Being *being;
-	vector<Action> actions;
+	vector<Action*> actions;
 };
 #endif
 
