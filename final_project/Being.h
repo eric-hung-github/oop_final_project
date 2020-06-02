@@ -9,7 +9,10 @@ class Being
 public:
 	Position pos;
 	string name;
-	int hp,maxHp;
+	int hp,maxHp,sheldPoint;
 
+	virtual void move();
+	virtual void attack();
+	virtual void longRest();
 };
 

@@ -14,9 +14,8 @@ public:
 
 	Character(CharcterData &cdata,int skillsNum[]);
 
-	void move();
-	void attack();
-	void heal();
-	void shield();
+	void move()override;
+	void attack()override;
+	void longRest()override;
 };
 

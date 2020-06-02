@@ -270,4 +270,6 @@ void GloomHaven::draw()
 		}
 		cout << endl;
 	}
+
+
 }
