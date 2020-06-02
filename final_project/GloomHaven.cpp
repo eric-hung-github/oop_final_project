@@ -1,11 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-
 #include "GloomHaven.h"
-#include "CharcterData.h"
-#include "CaracterSkill.h"
-#include "Monster.h"
 
 using namespace std;
 
@@ -109,6 +102,11 @@ bool GloomHaven::loadMonsterDatas(string fileName)
 	*/
 
 	return true;
+}
+
+bool GloomHaven::loadMapData(string fileName)
+{
+	return this->map.load(fileName);
 }
 
 void GloomHaven::chooseCharcters()
@@ -230,7 +228,7 @@ void GloomHaven::chooseIntialPos()
 
 void GloomHaven::charactersTurn()
 {
-	int totalTurns = this->Characters.size();
+	unsigned int totalTurns = this->Characters.size();
 	while (true)
 	{
 		break;

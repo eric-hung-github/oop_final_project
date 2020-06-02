@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "Postition.h"
 
@@ -28,7 +31,7 @@ public:
 	MapData();
 	MapData(string fileName);
 
-	bool loadBoard(string fileName);
+	bool load(string fileName);
 
 	bool isValidPos(Position posO);//to judge wether valid
 

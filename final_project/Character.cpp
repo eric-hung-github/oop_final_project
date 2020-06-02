@@ -14,11 +14,11 @@ Character::Character(CharcterData& cdata, int skillsNum[])
 
 }
 
-void Character::move()
+void Character::move(Action *action)
 {
 }
 
-void Character::attack()
+void Character::attack(Action *action)
 {
 }
 

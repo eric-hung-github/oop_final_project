@@ -12,22 +12,6 @@
 
 #include "GloomHaven.h"
 
-#include "MapData.h"
-#include "Postition.h"
-
-#include "BeingData.h"
-#include "CharcterData.h"
-#include "MonsterData.h"
-
-#include "Being.h"
-#include "Character.h"
-#include "Monster.h"
-
-#include "Skill.h"
-#include "CaracterSkill.h"
-#include "MonsterSkill.h"
-
-
 using namespace std;
 
 //------------------------------------
@@ -57,7 +41,7 @@ int main()
 	cin >> mapFileName;
 
 	// Loading map
-	game.map = MapData(mapFileName);//ok
+	game.loadMapData(mapFileName);//ok
 	// generate Monster by mapfile
 	game.generateMonster(); // ok
 

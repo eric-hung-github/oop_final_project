@@ -1,6 +1,3 @@
-#include <fstream>
-#include <iostream>
-
 #include "CharcterData.h"
 
 using namespace std;

@@ -1,9 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-
 #include "MapData.h"
-#include "Postition.h"
 
 using namespace std;
 
@@ -14,10 +9,16 @@ MapData::MapData()
 
 MapData::MapData(string fileName)
 {
+
+}
+
+bool MapData::load(string fileName)
+{
 	// file open and check
 	ifstream mapFile(fileName);
 	if (!mapFile.is_open() || !mapFile) {
 		cout << "open file " << fileName << " error!" << endl;
+		return false;
 	}
 
 	// input width and height
@@ -64,11 +65,6 @@ MapData::MapData(string fileName)
 
 
 	mapFile.close();
-}
-
-bool MapData::loadBoard(string fileName)
-{
-
 	return true;
 }
 

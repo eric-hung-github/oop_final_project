@@ -17,3 +17,11 @@ Monster::Monster(int hp, int atk, int range)
 	this->range = range;
 	this->sheldPoint = 0;
 }
+
+void Monster::move(Action* action)
+{
+}
+
+void Monster::attack(Action* action)
+{
+}

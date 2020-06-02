@@ -1,8 +1,11 @@
 #pragma once
+
 #include <iostream>
 #include <vector>
-#include "Being.h"
+
 #include "Postition.h"
+
+class Being;// waring : Forward Declartion
 
 class Action
 {

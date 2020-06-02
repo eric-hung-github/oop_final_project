@@ -1,6 +1,5 @@
 #pragma once
 
-#include "BeingData.h"
 #include "CharcterData.h"
 #include "MonsterData.h"
 
@@ -8,9 +7,16 @@
 #include "Character.h"
 #include "Monster.h"
 
+#include "Skill.h"
+#include "MonsterSkill.h"
+#include "CaracterSkill.h"
+
 #include "MapData.h"
 
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 #ifndef ACT_STRUCT
 #define ACT_STRUCT
@@ -42,6 +48,7 @@ public:
 	// load data
 	bool loadCharcterData(string fileName);
 	bool loadMonsterDatas(string fileName);
+	bool loadMapData(string fileName);
 
 	// choose characters into Characters from CharcterDatas
 	void chooseCharcters();

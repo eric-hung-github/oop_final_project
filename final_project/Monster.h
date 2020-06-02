@@ -16,5 +16,8 @@ public:
 
 	Monster();
 	Monster(int hp, int atk, int range);
+
+	void move(Action* action)override;
+	void attack(Action* action)override;
 };
 

@@ -1,4 +1,6 @@
 #pragma once
+#include <sstream>
+
 #include "Skill.h"
 #include "Action.h"
 

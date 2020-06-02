@@ -1,44 +1,13 @@
-#include <string>
-#include <sstream>
-#include <iostream>
-
 #include "CaracterSkill.h"
-#include "Action.h"
 
 using namespace std;
 
-CaracterSkill::CaracterSkill(string information)
-{
-	// enter skill's number and speedPoint
-	stringstream infor = stringstream(information);
-	infor >> this->number;
-	infor >> this->sp;
-
-	enterAction(infor, this->upAct);
-	enterAction(infor, this->downAct);
-}
-
-void CaracterSkill::printSkill()
-{
-	cout << this->number << " " << this->sp;
-
-	for (auto act : this->upAct) {
-		act->printAct();
-	}
-
-	for (auto act : this->downAct) {
-		act->printAct();
-	}
-
-	cout << endl;
-}
-
-void enterAction(stringstream& infor, vector<Action*>& actions)
+bool enterCharcterAct(stringstream& infor, vector<Action*>& actions)
 {
 	string actType = "";
 	int point = 0;
 	if (!(infor >> actType)) {
-		return;
+		return false;
 	}
 
 
@@ -47,7 +16,7 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 
 	if (actType == "-") {
 
-		return;
+		return false;
 	}
 	else if (actType == "attack") {
 		infor >> point;
@@ -86,5 +55,35 @@ void enterAction(stringstream& infor, vector<Action*>& actions)
 	}
 
 	actions.push_back(act);
-	enterAction(infor, actions);
+	enterCharcterAct(infor, actions);
+
+	return true;
 }
+
+CaracterSkill::CaracterSkill(string information)
+{
+	// enter skill's number and speedPoint
+	stringstream infor = stringstream(information);
+	infor >> this->number;
+	infor >> this->sp;
+
+	enterCharcterAct(infor, this->upAct);
+	enterCharcterAct(infor, this->downAct);
+}
+
+void CaracterSkill::printSkill()
+{
+	cout << this->number << " " << this->sp;
+
+	for (auto act : this->upAct) {
+		act->printAct();
+	}
+
+	for (auto act : this->downAct) {
+		act->printAct();
+	}
+
+	cout << endl;
+}
+
+
