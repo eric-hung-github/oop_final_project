@@ -243,6 +243,7 @@ void GloomHaven::monstersTurn()
 		MonsterSkill skill = monster.skills[rand() % monster.skills.size()];
 		act newAct;
 		newAct.being = &monster;
+		newAct.sp = skill.sp;
 		for (auto &act : skill.act) {
 			newAct.actions.push_back(act);
 		}

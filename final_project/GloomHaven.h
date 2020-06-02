@@ -16,6 +16,7 @@
 #define ACT_STRUCT
 struct act
 {
+	int sp;
 	Being *being;
 	vector<Action*> actions;
 };

@@ -59,7 +59,7 @@ int main()
 	// Loading map
 	game.map = MapData(mapFileName);//ok
 	// generate Monster by mapfile
-	game.generateMonster();
+	game.generateMonster(); // ok
 
 	// 
 	game.chooseIntialPos();// ok
@@ -70,7 +70,7 @@ int main()
 		// charcter choose skills
 		game.charactersTurn();
 		// monster choose skills
-		game.monstersTurn();//
+		game.monstersTurn();
 		// execute  action <being skill> sort by sp
 		game.execute();
 		// is other trigger ex open door all dead
