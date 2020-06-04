@@ -32,9 +32,7 @@ bool enterMonsterAct(stringstream& infor, vector<Action*>& actions)
 		return false;
 	}
 
-
 	Action* act;
-
 
 	if (actType == "r") {
 		return true;

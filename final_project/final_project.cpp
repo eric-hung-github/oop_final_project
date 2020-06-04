@@ -25,7 +25,7 @@ string monsterFileName = "monster.txt";
 string isPlay;
 string mapFileName;
 
-int main()
+int main(char *argv[])
 {
 	cin >> isPlay;
 
@@ -42,10 +42,11 @@ int main()
 
 	// Loading map
 	game.loadMapData(mapFileName);//ok
+
 	// generate Monster by mapfile
 	game.generateMonster(); // ok
 
-	// 
+	// choose charcter intial position
 	game.chooseIntialPos();// ok
 
 
@@ -53,17 +54,19 @@ int main()
 	{
 		// charcter choose skills
 		game.charactersTurn();
+
 		// monster choose skills
 		game.monstersTurn();
+
 		// execute  action <being skill> sort by sp
 		game.execute();
+
 		// is other trigger ex open door all dead
 
 		// is win or game over
 
 
 		game.draw();
-
 		break;
 	}
 }

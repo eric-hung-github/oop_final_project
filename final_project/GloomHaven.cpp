@@ -2,6 +2,15 @@
 
 using namespace std;
 
+bool minSortForActSp(act& a, act& b) {
+	if (a.sp < b.sp) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 bool GloomHaven::loadCharcterData(string fileName)
 {
 	ifstream file(fileName);
@@ -228,7 +237,7 @@ void GloomHaven::chooseIntialPos()
 
 void GloomHaven::charactersTurn()
 {
-	unsigned int totalTurns = this->Characters.size();
+	size_t totalTurns = this->Characters.size();
 	while (true)
 	{
 		break;
@@ -242,7 +251,7 @@ void GloomHaven::monstersTurn()
 		act newAct;
 		newAct.being = &monster;
 		newAct.sp = skill.sp;
-		for (auto &act : skill.act) {
+		for (auto& act : skill.act) {
 			newAct.actions.push_back(act);
 		}
 		this->acts.push_back(newAct);
@@ -251,6 +260,7 @@ void GloomHaven::monstersTurn()
 
 void GloomHaven::execute()
 {
+	sort(this->acts.begin(), this->acts.end(), minSortForActSp);
 
 	// one by one execute
 	for (auto& act : this->acts) {
@@ -262,13 +272,30 @@ void GloomHaven::execute()
 
 void GloomHaven::draw()
 {
+	char** drawBoard = new char* [this->map.width];
+	for (int i = 0; i < this->map.width; i++) {
+		drawBoard[i] = new char[this->map.height];
+		for (int j = 0; j < this->map.height; j++)
+		{
+			drawBoard[i][j] = this->map.board[i][j];
+		}
+	}
+
+	for (int i = 0; i < this->Characters.size(); i++) {
+		drawBoard[this->Characters[i].pos.y][this->Characters[i].pos.x] = i + 'A';
+	}
+
+	for (int i = 0; i < this->Monsters.size(); i++) {
+		drawBoard[this->Monsters[i].pos.y][this->Monsters[i].pos.x] = i + 'a';
+	}
+
 	for (int i = 0; i < this->map.width; i++) {
 		for (int j = 0; j < this->map.height; j++)
 		{
-			cout << this->map.board[i][j];
+			cout << drawBoard[i][j];
 		}
 		cout << endl;
 	}
-
+	cout << endl;
 
 }

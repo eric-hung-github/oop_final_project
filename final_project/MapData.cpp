@@ -4,12 +4,16 @@ using namespace std;
 
 MapData::MapData()
 {
-
+	this->height = 0;
+	this->width = 0;
+	this->board = nullptr;
 }
 
 MapData::MapData(string fileName)
 {
-
+	this->height = 0;
+	this->width = 0;
+	this->board = nullptr;
 }
 
 bool MapData::load(string fileName)

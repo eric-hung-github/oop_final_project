@@ -17,13 +17,14 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 #ifndef ACT_STRUCT
 #define ACT_STRUCT
 struct act
 {
-	int sp;
-	Being *being;
+	int sp=0;
+	Being *being=nullptr;
 	vector<Action*> actions;
 };
 #endif
@@ -62,7 +63,7 @@ public:
 	void monstersTurn();
 	void execute();
 
-
+	// 
 	void updateGameState();
 
 	// draw board

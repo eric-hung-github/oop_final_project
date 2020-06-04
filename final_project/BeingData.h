@@ -6,7 +6,7 @@ using namespace std;
 class BeingData
 {
 public:
-	int hp;
-	string	name;
+	int hp = 0;
+	string	name = "";
 };
 

@@ -46,6 +46,7 @@ Position Position::direction(char c)
 		return dirDown;
 	case'd':
 		return dirRight;
+	case'e':
 	default:
 		return Position(0, 0);
 	}

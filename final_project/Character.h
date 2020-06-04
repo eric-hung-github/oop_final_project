@@ -10,6 +10,7 @@ using namespace std;
 class Character :public Being
 {
 public:
+	vector<CaracterSkill> equipedSkills;
 	vector<CaracterSkill> skills;
 
 	Character(CharcterData &cdata,int skillsNum[]);
