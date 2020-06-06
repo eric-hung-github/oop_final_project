@@ -14,10 +14,8 @@ Position::Position(int x, int y)
 
 Position& Position::operator+(const Position& pos)
 {
-	Position rePos;
-	rePos.x = this->x + pos.x;
-	rePos.y = this->y + pos.y;
-	return rePos;
+	Position *rePos=new Position(this->x + pos.x, this->y + pos.y);
+	return *rePos;
 }
 
 Position& Position::operator-(const Position& pos)

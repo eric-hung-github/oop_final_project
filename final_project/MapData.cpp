@@ -67,7 +67,6 @@ bool MapData::load(string fileName)
 		this->monsterGenerInfor.push_back(generateInforStr);
 	}
 
-
 	mapFile.close();
 	return true;
 }
@@ -80,7 +79,7 @@ bool MapData::isValidPos(Position posO)
 	return false;
 }
 
-bool MapData::isVisiblePos(Position posO, Position& posT)
+bool MapData::isVisiblePos(Position posO, Position posT)
 {
 	if (this->board[posO.y][posO.x] != this->space) {}
 	if (posO == posT) { return true; }

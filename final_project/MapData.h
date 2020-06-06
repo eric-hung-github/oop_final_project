@@ -35,7 +35,7 @@ public:
 
 	bool isValidPos(Position posO);//to judge wether valid
 
-	bool isVisiblePos(Position posO, Position &posT);
+	bool isVisiblePos(Position posO, Position posT);
 
 	bool isIntialPos(Position pos);
 };

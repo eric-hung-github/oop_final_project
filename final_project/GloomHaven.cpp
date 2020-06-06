@@ -158,6 +158,7 @@ void GloomHaven::chooseCharcters()
 
 void GloomHaven::generateMonster()
 {
+	int monsterCount = 0;
 	for (int i = 0; i < this->map.monsterGenerInfor.size(); i++)
 	{
 		// reading generateInformation
@@ -177,7 +178,7 @@ void GloomHaven::generateMonster()
 			continue;
 		}
 
-		int monsterCount = 0;
+		
 		for (auto monsterData : this->MonsterDatas) {
 			if (monsterData.name == name) {
 				Monster newMonster;
@@ -275,31 +276,34 @@ void GloomHaven::execute()
 
 void GloomHaven::draw()
 {
-	char** drawBoard = new char* [this->map.width];
-	for (int i = 0; i < this->map.width; i++) {
-		drawBoard[i] = new char[this->map.height];
-		for (int j = 0; j < this->map.height; j++)
+	char** drawBoard = new char* [this->map.height];
+	for (int i = 0; i < this->map.height; i++) {
+		drawBoard[i] = new char[this->map.width];
+		for (int j = 0; j < this->map.width; j++)
 		{
 			Position pos = Position(j, i);
-			if (this->map.isVisiblePos(Characters[0].pos, pos)) {
+			if (this->map.isVisiblePos(this->Characters['A'].pos, pos)) {
 				drawBoard[i][j] = '1';
 			}
 			else {
 				drawBoard[i][j] = ' ';
 			}
+			
+			drawBoard[i][j] = this->map.board[i][j];
+
 		}
 	}
 
-	for (int i = 0; i < this->Characters.size(); i++) {
-		drawBoard[this->Characters[i].pos.y][this->Characters[i].pos.x] = i + 'A';
+	for (auto character : this->Characters) {
+		drawBoard[character.second.pos.y][character.second.pos.x] = character.first;
 	}
 
-	for (int i = 0; i < this->Monsters.size(); i++) {
-		drawBoard[this->Monsters[i].pos.y][this->Monsters[i].pos.x] = i + 'a';
+	for (auto monster : this->Monsters) {
+		drawBoard[monster.second.pos.y][monster.second.pos.x] = monster.first;
 	}
 
-	for (int i = 0; i < this->map.width; i++) {
-		for (int j = 0; j < this->map.height; j++)
+	for (int i = 0; i < this->map.height; i++) {
+		for (int j = 0; j < this->map.width; j++)
 		{
 			cout << drawBoard[i][j];
 		}
