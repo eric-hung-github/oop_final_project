@@ -1,8 +1,6 @@
-#include <sstream>
-
 #include "MonsterSkill.h"
 
-bool enterAction(stringstream& infor, vector<Action*>& actions);
+bool enterMonsterAct(stringstream& infor, vector<Action*>& actions);
 
 MonsterSkill::MonsterSkill(string information)
 {
@@ -13,7 +11,7 @@ MonsterSkill::MonsterSkill(string information)
 	infor >> this->number;
 	infor >> this->sp;
 
-	this->redraw = enterAction(infor, this->act);
+	this->redraw = enterMonsterAct(infor, this->act);
 }
 
 void MonsterSkill::printSkill()
@@ -26,7 +24,7 @@ void MonsterSkill::printSkill()
 	cout << endl;
 }
 
-bool enterAction(stringstream& infor, vector<Action*>& actions)
+bool enterMonsterAct(stringstream& infor, vector<Action*>& actions)
 {
 	string actType = "";
 	int point = 0;
@@ -34,9 +32,7 @@ bool enterAction(stringstream& infor, vector<Action*>& actions)
 		return false;
 	}
 
-
 	Action* act;
-
 
 	if (actType == "r") {
 		return true;
@@ -84,5 +80,5 @@ bool enterAction(stringstream& infor, vector<Action*>& actions)
 	}
 
 	actions.push_back(act);
-	enterAction(infor, actions);
+	enterMonsterAct(infor, actions);
 }

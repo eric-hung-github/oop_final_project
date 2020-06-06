@@ -2,6 +2,9 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <iostream>
+
 
 #include "BeingData.h"
 #include "CaracterSkill.h"

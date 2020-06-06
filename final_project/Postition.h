@@ -2,21 +2,25 @@
 
 using namespace std;
 
-class Postition
+class Position
 {
 public:
 	int x;
 	int y;
 
 
-	Postition();
-	Postition(int x, int y);
+	Position();
+	Position(int x, int y);
+
+	Position& operator+(const Position& pos);
+	Position& operator-(const Position& pos);
+	bool operator==(const Position& pos);
+
+	// return dir in pos according wasd
+	static Position direction(char c);
 };
 
-const static Postition dirUp = Postition(0, 1);
-const static Postition dirDown = Postition(0, -1);
-const static Postition dirRight = Postition(1,0);
-const static Postition dirLeft = Postition(-1,0);
-
-// for judge wether visible from two position
-bool isVisible();
+const static Position dirUp = Position(0, -1);
+const static Position dirDown = Position(0, 1);
+const static Position dirRight = Position(1,0);
+const static Position dirLeft = Position(-1,0);

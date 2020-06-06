@@ -1,23 +1,28 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-
 #include "MapData.h"
-#include "Postition.h"
 
 using namespace std;
 
 MapData::MapData()
 {
-	
+	this->height = 0;
+	this->width = 0;
+	this->board = nullptr;
 }
 
 MapData::MapData(string fileName)
+{
+	this->height = 0;
+	this->width = 0;
+	this->board = nullptr;
+}
+
+bool MapData::load(string fileName)
 {
 	// file open and check
 	ifstream mapFile(fileName);
 	if (!mapFile.is_open() || !mapFile) {
 		cout << "open file " << fileName << " error!" << endl;
+		return false;
 	}
 
 	// input width and height
@@ -42,32 +47,69 @@ MapData::MapData(string fileName)
 	getline(mapFile, intialPosStr);
 	intialPosSs = stringstream(intialPosStr);
 
-	Postition pos;
+	Position pos;
 	int posX, posY;
-	while (intialPosSs>> posX >> posY)
+	while (intialPosSs >> posX >> posY)
 	{
-		pos = Postition(posX, posY);
+		pos = Position(posX, posY);
 		this->intialPositions.push_back(pos);
 	}
 
 	// input generations information of Monsters
-	int generCount=0;
+	int generCount = 0;
 	mapFile >> generCount;
 	mapFile.ignore();
 
 	for (int i = 0; i < generCount; i++)
 	{
-		string generateInforStr="";
+		string generateInforStr = "";
 		getline(mapFile, generateInforStr);
 		this->monsterGenerInfor.push_back(generateInforStr);
 	}
 
 
 	mapFile.close();
+	return true;
 }
 
-bool MapData::loadBoard(string fileName)
+bool MapData::isValidPos(Position posO)
 {
+	if (posO.x >= 0 && posO.x < this->width && posO.y >= 0 && posO.y < this->height) {
+		return true;
+	}
+	return false;
+}
 
-	return true;
+bool MapData::isVisiblePos(Position &posO, Position &posT)
+{
+	if (posO == posT) { return true; }
+	if (isValidPos(posO+dirUp)) {
+		if (isVisiblePos(posO + dirUp, posT)) {
+			return true;
+		}
+	}
+	if (isValidPos(posO + dirDown)) {
+		if (isVisiblePos(posO + dirDown, posT)) {
+			return true;
+		}
+	}
+	if (isValidPos(posO + dirRight)) {
+		if (isVisiblePos(posO + dirRight, posT)) {
+			return true;
+		}
+	}
+	if (isValidPos(posO + dirLeft)) {
+		if (isVisiblePos(posO + dirLeft, posT)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool MapData::isIntialPos(Position pos)
+{
+	for (auto p : this->intialPositions) {
+		if (p == pos) { return true; }
+	}
+	return false;
 }

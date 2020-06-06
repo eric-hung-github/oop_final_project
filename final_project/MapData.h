@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "Postition.h"
 
@@ -10,7 +13,7 @@ class MapData
 {
 public:
 	
-	vector<Postition> intialPositions;
+	vector<Position> intialPositions;
 
 	vector<string> monsterGenerInfor;
 
@@ -27,6 +30,13 @@ public:
 
 	MapData();
 	MapData(string fileName);
-	bool loadBoard(string fileName);
+
+	bool load(string fileName);
+
+	bool isValidPos(Position posO);//to judge wether valid
+
+	bool isVisiblePos(Position &posO, Position &posT);
+
+	bool isIntialPos(Position pos);
 };
 

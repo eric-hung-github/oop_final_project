@@ -12,9 +12,12 @@ class Monster :public Being
 public:
 	int atk, range;
 	vector<MonsterSkill> skills;
-	Postition pos;
+	//Position pos;
 
 	Monster();
 	Monster(int hp, int atk, int range);
+
+	void move(Action* action)override;
+	void attack(Action* action)override;
 };
 

@@ -1,36 +1,6 @@
 #include "Action.h"
 
-// attack
-void ActAttack::execute(Being being)
-{
-
-}
-
-// sheild
-void ActSheild::execute(Being being)
-{
-}
-
-ActMove::ActMove(int point,string steps)
-{
-	this->point = 0;
-	this->steps = steps;
-}
-
-// move
-void ActMove::execute(Being being)
-{
-}
-
-// heal
-void ActHeal::execute(Being being)
-{
-}
-
-// long rest
-void ActRest::execute(Being being)
-{
-}
+#include "Being.h"// waring : Forward Declartion
 
 Action::Action()
 {
@@ -42,7 +12,44 @@ Action::Action(int point)
 	this->point = point;
 }
 
-// virtual function
-void Action::execute(Being being)
+void Action::execute(Being *being)
 {
 }
+
+ActMove::ActMove(int point, string steps)
+{
+	this->point = 0;
+	this->steps = steps;
+}
+
+// attack
+void ActAttack::execute(Being *being)
+{
+	being->attack(this);
+}
+
+// sheild
+void ActSheild::execute(Being *being)
+{
+	being->sheild(this);
+}
+
+// move
+void ActMove::execute(Being *being)
+{
+	being->move(this);
+}
+
+// heal
+void ActHeal::execute(Being *being)
+{
+	being->heal(this);
+}
+
+// long rest
+void ActRest::execute(Being *being)
+{
+	being->longRest();
+}
+
+

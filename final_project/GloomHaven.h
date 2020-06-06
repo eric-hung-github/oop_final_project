@@ -1,6 +1,5 @@
 #pragma once
 
-#include "BeingData.h"
 #include "CharcterData.h"
 #include "MonsterData.h"
 
@@ -8,16 +7,25 @@
 #include "Character.h"
 #include "Monster.h"
 
+#include "Skill.h"
+#include "MonsterSkill.h"
+#include "CaracterSkill.h"
+
 #include "MapData.h"
 
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
 
 #ifndef ACT_STRUCT
 #define ACT_STRUCT
 struct act
 {
-	Being *being;
-	vector<Action> actions;
+	int sp=0;
+	Being *being=nullptr;
+	vector<Action*> actions;
 };
 #endif
 
@@ -41,6 +49,7 @@ public:
 	// load data
 	bool loadCharcterData(string fileName);
 	bool loadMonsterDatas(string fileName);
+	bool loadMapData(string fileName);
 
 	// choose characters into Characters from CharcterDatas
 	void chooseCharcters();
@@ -52,9 +61,9 @@ public:
 	// game loop
 	void charactersTurn();
 	void monstersTurn();
+	void execute();
 
-
-
+	// 
 	void updateGameState();
 
 	// draw board
