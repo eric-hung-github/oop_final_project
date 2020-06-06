@@ -11,6 +11,7 @@ class Monster :public Being
 
 public:
 	int atk, range;
+	vector<MonsterSkill> equipedSkills;
 	vector<MonsterSkill> skills;
 	//Position pos;
 

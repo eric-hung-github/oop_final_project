@@ -14,6 +14,7 @@ public:
 	map<int,CaracterSkill> equipedSkills;
 	map<int,CaracterSkill> skills;
 
+	Character();
 	Character(CharcterData &cdata,int skillsNum[]);
 
 	void move(Action *action)override;
