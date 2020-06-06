@@ -18,13 +18,14 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <map>
 
 #ifndef ACT_STRUCT
 #define ACT_STRUCT
 struct act
 {
-	int sp=0;
-	Being *being=nullptr;
+	int sp = 0;
+	Being* being = nullptr;
 	vector<Action*> actions;
 };
 #endif
@@ -39,8 +40,8 @@ public:
 
 	MapData map;
 
-	vector<Character> Characters;
-	vector<Monster> Monsters;
+	std::map<char, Character> Characters;
+	std::map<char, Monster> Monsters;
 
 	vector<act> acts;
 
@@ -69,7 +70,7 @@ public:
 	// draw board
 	void draw();
 
-	
+
 };
 
 

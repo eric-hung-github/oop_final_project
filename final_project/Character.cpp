@@ -1,6 +1,10 @@
 #include <iostream>
 #include "Character.h"
 
+Character::Character()
+{
+}
+
 Character::Character(CharcterData& cdata, int skillsNum[])
 {
 	this->name = cdata.name;

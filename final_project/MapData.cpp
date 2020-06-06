@@ -26,13 +26,13 @@ bool MapData::load(string fileName)
 	}
 
 	// input width and height
-	mapFile >> this->width >> this->height;
+	mapFile >> this->height >> this->width;
 
 	// input board 
 	this->board = new char* [this->height];
-	for (int i = 0; i < this->width; i++) {
+	for (int i = 0; i < this->height; i++) {
 		this->board[i] = new char[this->width];
-		for (int j = 0; j < this->height; j++)
+		for (int j = 0; j < this->width; j++)
 		{
 			mapFile >> board[i][j];
 		}
@@ -80,10 +80,11 @@ bool MapData::isValidPos(Position posO)
 	return false;
 }
 
-bool MapData::isVisiblePos(Position &posO, Position &posT)
+bool MapData::isVisiblePos(Position posO, Position& posT)
 {
+	if (this->board[posO.y][posO.x] != this->space) {}
 	if (posO == posT) { return true; }
-	if (isValidPos(posO+dirUp)) {
+	if (isValidPos(posO + dirUp)) {
 		if (isVisiblePos(posO + dirUp, posT)) {
 			return true;
 		}
