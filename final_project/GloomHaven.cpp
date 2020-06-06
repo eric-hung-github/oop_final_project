@@ -222,7 +222,7 @@ void GloomHaven::chooseIntialPos()
 			string choosePosition;
 			cin >> choosePosition;
 
-			Position intialPos = this->map.intialPositions[3];// weird----
+			Position intialPos = *(this->map.intialPositions.end()-1);// weird----
 			for (auto c : choosePosition) {
 				intialPos = intialPos + Position::direction(c);
 			}

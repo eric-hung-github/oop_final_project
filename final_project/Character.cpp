@@ -9,16 +9,16 @@ Character::Character(CharcterData& cdata, int skillsNum[])
 	this->sheldPoint = 0;
 
 	for (int i = 0; i < cdata.maxSkill; i++) {
-		this->skills.push_back(cdata.skills[skillsNum[i]]);
+		this->skills.insert({ skillsNum[i],cdata.skills[skillsNum[i]] });
 	}
 	this->equipedSkills = this->skills;
 }
 
-void Character::move(Action *action)
+void Character::move(Action* action)
 {
 }
 
-void Character::attack(Action *action)
+void Character::attack(Action* action)
 {
 }
 
