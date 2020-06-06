@@ -139,7 +139,7 @@ void GloomHaven::chooseCharcters()
 				}
 
 				Character newCharacter(characterData, skillsNum);
-				this->Characters.push_back(newCharacter);
+				this->Characters.insert({i+'A',newCharacter});
 				break;
 			}
 		}
@@ -177,9 +177,10 @@ void GloomHaven::generateMonster()
 			continue;
 		}
 
+		int monsterCount = 0;
 		for (auto monsterData : this->MonsterDatas) {
 			if (monsterData.name == name) {
-				Monster monster;
+				Monster newMonster;
 				int hp, atk, range;
 				if (level[this->Characters.size() - 2] == 1) {
 					hp = monsterData.hp;
@@ -191,13 +192,15 @@ void GloomHaven::generateMonster()
 					atk = monsterData.bossAtk;
 					range = monsterData.bossRange;
 				}
-				monster = Monster(hp, atk, range);
-				monster.skills = monsterData.skills;
-				monster.name = name;
-				monster.pos = Position(posX, posY);
+				newMonster = Monster(hp, atk, range);
+				newMonster.skills = monsterData.skills;
+				newMonster.name = name;
+				newMonster.pos = Position(posX, posY);
 
-				this->Monsters.push_back(monster);
+				this->Monsters.insert({ monsterCount +'a',newMonster});
+				monsterCount++;
 			}
+
 		}
 
 	}
@@ -222,13 +225,13 @@ void GloomHaven::chooseIntialPos()
 			string choosePosition;
 			cin >> choosePosition;
 
-			Position intialPos = *(this->map.intialPositions.end()-1);// weird----
+			Position intialPos = *(this->map.intialPositions.end() - 1);// weird----
 			for (auto c : choosePosition) {
 				intialPos = intialPos + Position::direction(c);
 			}
 
 			if (this->map.isIntialPos(intialPos)) {
-				charcter.pos = intialPos;
+				charcter.second.pos = intialPos;
 				break;
 			}
 		}
@@ -247,9 +250,9 @@ void GloomHaven::charactersTurn()
 void GloomHaven::monstersTurn()
 {
 	for (auto& monster : this->Monsters) {
-		MonsterSkill skill = monster.skills[rand() % monster.skills.size()];
+		MonsterSkill skill = monster.second.skills[rand() % monster.second.skills.size()];
 		act newAct;
-		newAct.being = &monster;
+		newAct.being = &(monster.second);
 		newAct.sp = skill.sp;
 		for (auto& act : skill.act) {
 			newAct.actions.push_back(act);
@@ -277,7 +280,13 @@ void GloomHaven::draw()
 		drawBoard[i] = new char[this->map.height];
 		for (int j = 0; j < this->map.height; j++)
 		{
-			drawBoard[i][j] = this->map.board[i][j];
+			Position pos = Position(j, i);
+			if (this->map.isVisiblePos(Characters[0].pos, pos)) {
+				drawBoard[i][j] = '1';
+			}
+			else {
+				drawBoard[i][j] = ' ';
+			}
 		}
 	}
 
