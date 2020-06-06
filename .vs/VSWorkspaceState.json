@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\final_project",
-    "\\final_project\\define",
-    "\\final_project\\Header",
-    "\\final_project\\input"
+    "\\final_project"
   ],
-  "SelectedNode": "\\final_project\\define\\Action.cpp",
+  "SelectedNode": "\\final_project\\define",
   "PreviewInSolutionExplorer": false
 }
