@@ -139,7 +139,7 @@ void GloomHaven::chooseCharcters()
 				}
 
 				Character newCharacter(characterData, skillsNum);
-				this->Characters.insert({i+'A',newCharacter});
+				this->Characters.insert({ i + 'A',newCharacter });
 				break;
 			}
 		}
@@ -178,7 +178,7 @@ void GloomHaven::generateMonster()
 			continue;
 		}
 
-		
+
 		for (auto monsterData : this->MonsterDatas) {
 			if (monsterData.name == name) {
 				Monster newMonster;
@@ -198,7 +198,7 @@ void GloomHaven::generateMonster()
 				newMonster.name = name;
 				newMonster.pos = Position(posX, posY);
 
-				this->Monsters.insert({ monsterCount +'a',newMonster});
+				this->Monsters.insert({ monsterCount + 'a',newMonster });
 				monsterCount++;
 			}
 
@@ -241,11 +241,59 @@ void GloomHaven::chooseIntialPos()
 
 void GloomHaven::charactersTurn()
 {
+	/*
 	size_t totalTurns = this->Characters.size();
-	while (true)
+
+	char chosecard[4][3] = { 0 };
+
+	for (int i = 0; i < 4; i++)
 	{
-		break;
+		for (int j = 0; j < 3; j++)
+		{
+			cin >> chosecard[i][j];
+		}
 	}
+	for (auto& character : this->Characters)
+	{
+		int i = 0;
+		string merge;
+		cin >> merge;
+		act newAct;
+		newAct.being = &character.second;
+		if (character.second.skills[chosecard[i][1]].sp >
+			character.second.skills[chosecard[i][2]].sp)
+			newAct.sp = character.second.skills[chosecard[i][2]].sp;
+		else
+			newAct.sp = character.second.skills[chosecard[i][1]].sp;
+
+		if (merge[0] == chosecard[i][1]) {
+			if (merge[1] == 'u')
+			{
+				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
+				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
+			}
+			else if (merge[1] == 'd')
+			{
+				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
+				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
+			}
+		}
+		else if (merge[1] == chosecard[i][2])
+		{
+			if (merge[1] == 'u')
+			{
+				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
+				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
+			}
+			else if (merge[1] == 'd')
+			{
+				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
+				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
+			}
+		}
+		i++;
+	}
+	*/
 }
 
 void GloomHaven::monstersTurn()
@@ -276,21 +324,19 @@ void GloomHaven::execute()
 
 void GloomHaven::draw()
 {
+	map.updateVisiblePosition(this->Characters['A'].pos);
 	char** drawBoard = new char* [this->map.height];
 	for (int i = 0; i < this->map.height; i++) {
 		drawBoard[i] = new char[this->map.width];
 		for (int j = 0; j < this->map.width; j++)
 		{
 			Position pos = Position(j, i);
-			if (this->map.isVisiblePos(this->Characters['A'].pos, pos)) {
-				drawBoard[i][j] = '1';
+			if (map.visiblePosition.find({j,i})!=map.visiblePosition.end()) {
+				drawBoard[i][j] = map.board[i][j];
 			}
 			else {
 				drawBoard[i][j] = ' ';
 			}
-			
-			drawBoard[i][j] = this->map.board[i][j];
-
 		}
 	}
 

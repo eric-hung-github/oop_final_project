@@ -79,6 +79,31 @@ bool MapData::isValidPos(Position posO)
 	return false;
 }
 
+void MapData::updateVisiblePosition(Position pos)
+{
+	if (this->board[pos.y][pos.x] == this->block) { return; }
+	if (this->board[pos.y][pos.x] == this->door) { 
+		this->visiblePosition.insert({pos});
+		return; 
+	}
+	if (this->visiblePosition.find({pos}) == this->visiblePosition.end()) {
+		this->visiblePosition.insert({pos});
+
+		if (isValidPos(pos + dirUp)) {
+			updateVisiblePosition(pos + dirUp);
+		}
+		if (isValidPos(pos + dirDown)) {
+			updateVisiblePosition(pos + dirDown);
+		}
+		if (isValidPos(pos + dirRight)) {
+			updateVisiblePosition(pos + dirRight);
+		}
+		if (isValidPos(pos + dirLeft)) {
+			updateVisiblePosition(pos + dirLeft);
+		}
+	}
+}
+
 bool MapData::isVisiblePos(Position posO, Position posT)
 {
 	if (this->board[posO.y][posO.x] != this->space) {}
