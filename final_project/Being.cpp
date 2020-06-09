@@ -1,25 +1,25 @@
 #include "Being.h"
 
-void Being::heal(Action *action)
+void Being::heal(ActHeal action)
 {
-	if (this->hp + action->point <= this->maxHp) {
-		this->hp += action->point;
+	if (this->hp + action.point <= this->maxHp) {
+		this->hp += action.point;
 	}
 	else {
 		this->hp = this->maxHp;
 	}
 }
 
-void Being::sheild(Action* action)
+void Being::sheild(ActSheild action)
 {
-	this->sheldPoint += action->point;
+	this->sheldPoint += action.point;
 }
 
-void Being::move(Action *action)
+void Being::move(ActMove action)
 {
 }
 
-void Being::attack(Action *action)
+void Being::attack(ActAttack action)
 {
 }
 

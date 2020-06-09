@@ -17,6 +17,7 @@ public:
 	bool operator==(const Position& pos);
 
 	// return dir in pos according wasd
+	static double countRange(Position a, Position b);
 	static Position direction(char c);
 };
 

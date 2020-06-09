@@ -18,8 +18,8 @@ public:
 	Character();
 	Character(CharcterData &cdata,int skillsNum[]);
 
-	void move(Action *action)override;
-	void attack(Action *action)override;
+	void move(ActMove action)override;
+	void attack(ActAttack action)override;
 	void longRest()override;
 };
 

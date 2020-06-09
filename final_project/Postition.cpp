@@ -14,7 +14,7 @@ Position::Position(int x, int y)
 
 Position& Position::operator+(const Position& pos)
 {
-	Position *rePos=new Position(this->x + pos.x, this->y + pos.y);
+	Position* rePos = new Position(this->x + pos.x, this->y + pos.y);
 	return *rePos;
 }
 
@@ -30,6 +30,11 @@ bool Position::operator==(const Position& pos)
 {
 	if (this->x == pos.x && this->y == pos.y) { return true; }
 	else { return false; }
+}
+
+double Position::countRange(Position a, Position b)
+{
+	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 }
 
 Position Position::direction(char c)

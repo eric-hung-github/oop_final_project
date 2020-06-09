@@ -17,9 +17,9 @@ public:
 	string name;
 	int hp,maxHp,sheldPoint;
 
-	void heal(Action *action);
-	void sheild(Action *action);
-	virtual void move(Action *action);
-	virtual void attack(Action *action);
+	void heal(ActHeal);
+	void sheild(ActSheild);
+	virtual void move(ActMove);
+	virtual void attack(ActAttack);
 	virtual void longRest();
 };

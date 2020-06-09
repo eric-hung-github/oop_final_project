@@ -247,14 +247,18 @@ void GloomHaven::chooseIntialPos()
 
 void GloomHaven::charactersTurn()
 {
+	//std::map<char, int[]>playedCard;
+
 	size_t totalTurns = this->Characters.size();
+
+	int** characterPlayCard = new int*[this->Characters.size()];
 
 	while (totalTurns > 0) {
 		char characterIndex;
 		string command;
 		cin >> characterIndex >> command;
 
-		if (command=="-1")// long rest
+		if (command == "-1")// long rest
 		{
 			if (this->Characters[characterIndex].playedSkill.size() < 2) {
 
@@ -267,11 +271,13 @@ void GloomHaven::charactersTurn()
 				newAct.being = &this->Characters[characterIndex];
 
 				this->acts.push_back(newAct);
+
+				totalTurns -= 1;
 			}
 
 		}
-		else if (command =="check")// check
-		{	
+		else if (command == "check")// check
+		{
 			// cout card
 			cout << "hand: ";
 			for (auto hasSkill : this->Characters[characterIndex].skills) {
@@ -285,8 +291,12 @@ void GloomHaven::charactersTurn()
 		}
 		else // play card
 		{
+			int playedSkill[2];
+			playedSkill[0] = stoi(command);
+			cin >> command;
+			playedSkill[1] = stoi(command);
 
-
+			characterPlayCard[characterIndex - 'A'] = playedSkill;
 		}
 	}
 

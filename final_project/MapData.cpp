@@ -104,30 +104,15 @@ void MapData::updateVisiblePosition(Position pos)
 	}
 }
 
-bool MapData::isVisiblePos(Position posO, Position posT)
+bool MapData::isCharacterMoveable(Position pos )
 {
-	if (this->board[posO.y][posO.x] != this->space) {}
-	if (posO == posT) { return true; }
-	if (isValidPos(posO + dirUp)) {
-		if (isVisiblePos(posO + dirUp, posT)) {
-			return true;
-		}
-	}
-	if (isValidPos(posO + dirDown)) {
-		if (isVisiblePos(posO + dirDown, posT)) {
-			return true;
-		}
-	}
-	if (isValidPos(posO + dirRight)) {
-		if (isVisiblePos(posO + dirRight, posT)) {
-			return true;
-		}
-	}
-	if (isValidPos(posO + dirLeft)) {
-		if (isVisiblePos(posO + dirLeft, posT)) {
-			return true;
-		}
-	}
+	if (this->board[pos.y][pos.x] == '0')return true;
+	return false;
+}
+
+bool MapData::isMonsterMoveable(Position pos)
+{
+	if (this->board[pos.y][pos.x] != '1')return true;
 	return false;
 }
 

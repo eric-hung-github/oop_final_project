@@ -18,10 +18,18 @@ Monster::Monster(int hp, int atk, int range)
 	this->sheldPoint = 0;
 }
 
-void Monster::move(Action* action)
+void Monster::move(ActMove action)
 {
+	for (auto step : action.steps) {
+		if (this->mapData->isMonsterMoveable(this->pos + Position::direction(step))) {
+			this->pos = this->pos + Position::direction(step);
+		}
+		else {
+			break;
+		}
+	}
 }
 
-void Monster::attack(Action* action)
+void Monster::attack(ActAttack action)
 {
 }
