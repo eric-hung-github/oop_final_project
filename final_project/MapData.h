@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <set>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -9,13 +10,30 @@
 
 using namespace std;
 
+#ifndef POSITION_SORT
+#define POSITION_SORT
+
+struct positionSort
+{
+	bool operator()(const Position& a,const Position& b)const {
+		if (a.x == b.x) return a.y < b.y;
+		else return a.x < b.x;
+	}
+};
+
+
+
+#endif // !POSITION_SORT
+
+
+
 class MapData
 {
 public:
-	
-	vector<Position> intialPositions;
 
+	vector<Position> intialPositions;
 	vector<string> monsterGenerInfor;
+	set < Position, positionSort> visiblePosition;
 
 	// data of board
 	int width;
@@ -25,7 +43,7 @@ public:
 	// const of map object
 	const static char wall = ' ';
 	const static char space = '1';
-	const static char block = '2';
+	const static char block = '0';
 	const static char door = '3';
 
 	MapData();
@@ -35,8 +53,9 @@ public:
 
 	bool isValidPos(Position posO);//to judge wether valid
 
-	bool isVisiblePos(Position posO, Position &posT);
+	void updateVisiblePosition(Position intialPos);
 
 	bool isIntialPos(Position pos);
-};
 
+	void isOpenDoor(vector<Position> characterPoses);
+};

@@ -11,14 +11,16 @@ using namespace std;
 class Character :public Being
 {
 public:
-	map<int,CaracterSkill> equipedSkills;
+
+	map<int,CaracterSkill> playedSkill;
 	map<int,CaracterSkill> skills;
 
 	Character();
 	Character(CharcterData &cdata,int skillsNum[]);
 
-	void move(Action *action)override;
-	void attack(Action *action)override;
+	void move(ActMove action)override;
+	void attack(ActAttack action)override;
+	void hurt(int damage);
 	void longRest()override;
 };
 

@@ -1,4 +1,5 @@
 #include "Postition.h"
+#include <math.h>
 
 Position::Position()
 {
@@ -14,10 +15,8 @@ Position::Position(int x, int y)
 
 Position& Position::operator+(const Position& pos)
 {
-	Position rePos;
-	rePos.x = this->x + pos.x;
-	rePos.y = this->y + pos.y;
-	return rePos;
+	Position* rePos = new Position(this->x + pos.x, this->y + pos.y);
+	return *rePos;
 }
 
 Position& Position::operator-(const Position& pos)
@@ -32,6 +31,11 @@ bool Position::operator==(const Position& pos)
 {
 	if (this->x == pos.x && this->y == pos.y) { return true; }
 	else { return false; }
+}
+
+double Position::countRange(Position a, Position b)
+{
+	return abs(a.x-b.x)+abs(a.y-b.y);
 }
 
 Position Position::direction(char c)

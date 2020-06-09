@@ -25,25 +25,25 @@ ActMove::ActMove(int point, string steps)
 // attack
 void ActAttack::execute(Being *being)
 {
-	being->attack(this);
+	being->attack(*this);
 }
 
 // sheild
 void ActSheild::execute(Being *being)
 {
-	being->sheild(this);
+	being->sheild(*this);
 }
 
 // move
 void ActMove::execute(Being *being)
 {
-	being->move(this);
+	being->move(*this);
 }
 
 // heal
 void ActHeal::execute(Being *being)
 {
-	being->heal(this);
+	being->heal(*this);
 }
 
 // long rest

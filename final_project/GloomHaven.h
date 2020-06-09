@@ -12,6 +12,7 @@
 #include "CaracterSkill.h"
 
 #include "MapData.h"
+#include "Postition.h"
 
 #include <vector>
 #include <iostream>
@@ -45,8 +46,6 @@ public:
 
 	vector<act> acts;
 
-	// constructor
-
 	// load data
 	bool loadCharcterData(string fileName);
 	bool loadMonsterDatas(string fileName);
@@ -64,8 +63,18 @@ public:
 	void monstersTurn();
 	void execute();
 
+	// check move
+	bool isPositionConflict(Being* being, Position pos);
+	bool isCharacterMoveable(Being* being, Position pos);
+	bool isMonsterMoveable(Being* being, Position pos);
+
+	// attack lock
+	bool isAttackable(Position sub, Position target, int range);
+	bool lockCharacter(Position pos, int Range, Character* character);
+	bool lockMonster(Position pos, int Range, Monster* monster);
+
 	// 
-	void updateGameState();
+	void updateGame();
 
 	// draw board
 	void draw();

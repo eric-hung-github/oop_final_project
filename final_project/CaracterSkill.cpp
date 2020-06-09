@@ -60,6 +60,11 @@ bool enterCharcterAct(stringstream& infor, vector<Action*>& actions)
 	return true;
 }
 
+CaracterSkill::CaracterSkill()
+{
+
+}
+
 CaracterSkill::CaracterSkill(string information)
 {
 	// enter skill's number and speedPoint
@@ -85,5 +90,3 @@ void CaracterSkill::printSkill()
 
 	cout << endl;
 }
-
-
