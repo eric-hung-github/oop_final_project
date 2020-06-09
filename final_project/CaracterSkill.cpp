@@ -76,6 +76,13 @@ CaracterSkill::CaracterSkill(CaracterSkill const& input)
 {
     this->upAct=input.upAct;
     this->downAct=input.downAct;
+	this->sp = input.sp;
+	this->number = input.number;
+}
+
+CaracterSkill::CaracterSkill()
+{
+
 }
 
 void CaracterSkill::printSkill()

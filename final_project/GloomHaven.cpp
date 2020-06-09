@@ -121,6 +121,7 @@ bool GloomHaven::loadMapData(string fileName)
 void GloomHaven::chooseCharcters()
 {
 	int charcterNum = 0;
+	cout << "Please enter the number of characters (2~4): ";
 	cin >> charcterNum;
 
 	for (int i = 0; i < charcterNum; i++) {
@@ -256,9 +257,9 @@ void GloomHaven::charactersTurn()
 				cout << hasSkill.first << ' ';
 			}
 			cout << "; discard: ";
-			for (auto playedSkill : this->Characters[chararcterindex].playedSkill) {
-				cout << playedSkill.first << ' ';
-			}
+			//for (auto playedSkill : this->Characters[chararcterindex].playedSkill) {
+				//cout << playedSkill.first << ' ';
+			//}
 			cout << endl;
 		}
 		else if (card == "-1")
@@ -283,8 +284,8 @@ void GloomHaven::charactersTurn()
 		string merge;
 		cin >> merge;
 		act newAct;
-        CaracterSkill newskill1(character.second.skills[chosecard[character.first].first]);
-        CaracterSkill newskill2(character.second.skills[chosecard[character.first].second]);
+        CaracterSkill newskill1 (character.second.skills[chosecard[character.first].first]);
+        CaracterSkill newskill2 (character.second.skills[chosecard[character.first].second]);
 		newAct.being = &character.second;
 		if (character.second.skills[chosecard[character.first].first].sp >
 			character.second.skills[chosecard[character.first].second].sp)
