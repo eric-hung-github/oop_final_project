@@ -71,6 +71,12 @@ CaracterSkill::CaracterSkill(string information)
 	enterCharcterAct(infor, this->downAct);
 }
 
+CaracterSkill::CaracterSkill(CaracterSkill const  &input)
+{
+    this->upAct=input.upAct;
+    this->downAct=input.downAct;
+}
+
 void CaracterSkill::printSkill()
 {
 	cout << this->number << " " << this->sp;
@@ -85,5 +91,7 @@ void CaracterSkill::printSkill()
 
 	cout << endl;
 }
+
+
 
 

@@ -257,6 +257,8 @@ void GloomHaven::charactersTurn()
 		string merge;
 		cin >> merge;
 		act newAct;
+        CaracterSkill newskill1(character.second.skills[chosecard[i][1]]);
+        CaracterSkill newskill2(character.second.skills[chosecard[i][2]]);
 		newAct.being = &character.second;
 		if (character.second.skills[chosecard[i][1]].sp >
 			character.second.skills[chosecard[i][2]].sp)
@@ -267,26 +269,22 @@ void GloomHaven::charactersTurn()
 		if (merge[0] == chosecard[i][1]) {
 			if (merge[1] == 'u')
 			{
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
+                newAct.actions.push_back(newskill1.upAct[i]);
 			}
 			else if (merge[1] == 'd') 
 			{
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
+				
 			}
 		}
 		else if (merge[1] == chosecard[i][2]) 
 		{
 			if (merge[1] == 'u')
 			{
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
+				
 			}
 			else if (merge[1] == 'd')
 			{
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
+				
 			}
 		}
 		i++;
