@@ -243,7 +243,16 @@ void GloomHaven::chooseIntialPos()
 			string choosePosition;
 			cin >> choosePosition;
 
-			Position intialPos = *(this->map.intialPositions.end() - 1);// weird----
+			Position intialPos = (this->map.intialPositions[0]);// weird----
+			for (auto intialPosition : this->map.intialPositions)
+			{
+				if (intialPosition.x + intialPosition.y < intialPos.x + intialPos.y)
+				{
+					intialPos = intialPosition;
+				}
+			}
+
+
 			for (auto c : choosePosition)
 			{
 				if (c == 'e')continue;
@@ -279,7 +288,7 @@ void GloomHaven::charactersTurn()
 		{
 			if (this->Characters[characterIndex].playedSkill.size() < 2)
 			{
-
+				cout << "You can't REST NOW!!!" << endl;
 
 			}
 			else
@@ -413,6 +422,7 @@ void GloomHaven::execute()
 		for (auto& action : act.actions)
 		{
 			action->execute(act.being);
+			this->updateGame();
 		}
 		this->updateGame();
 		this->draw();
@@ -435,13 +445,18 @@ bool GloomHaven::isPositionConflict(Being* being, Position pos)
 
 bool GloomHaven::isCharacterMoveable(Being* being, Position pos)
 {
-	if (this->map.board[pos.y][pos.x] == '0' && !isPositionConflict(being, pos))return true;
+	if (this->map.board[pos.y][pos.x] != this->map.block && !isPositionConflict(being, pos))return true;
 	return false;
 }
 
 bool GloomHaven::isMonsterMoveable(Being* being, Position pos)
 {
-	if (this->map.board[pos.y][pos.x] != '1' && !isPositionConflict(being, pos))return true;
+	if (this->map.board[pos.y][pos.x] ==this->map.space && !isPositionConflict(being, pos))return true;
+	return false;
+}
+
+bool GloomHaven::isAttackable(Position sub, Position target, int range)
+{
 	return false;
 }
 

@@ -56,5 +56,6 @@ public:
 	void updateVisiblePosition(Position intialPos);
 
 	bool isIntialPos(Position pos);
-};
 
+	void isOpenDoor(vector<Position> characterPoses);
+};

@@ -20,7 +20,8 @@ bool MapData::load(string fileName)
 {
 	// file open and check
 	ifstream mapFile(fileName);
-	if (!mapFile.is_open() || !mapFile) {
+	if (!mapFile.is_open() || !mapFile)
+	{
 		cout << "open file " << fileName << " error!" << endl;
 		return false;
 	}
@@ -30,7 +31,8 @@ bool MapData::load(string fileName)
 
 	// input board 
 	this->board = new char* [this->height];
-	for (int i = 0; i < this->height; i++) {
+	for (int i = 0; i < this->height; i++)
+	{
 		this->board[i] = new char[this->width];
 		for (int j = 0; j < this->width; j++)
 		{
@@ -73,7 +75,8 @@ bool MapData::load(string fileName)
 
 bool MapData::isValidPos(Position posO)
 {
-	if (posO.x >= 0 && posO.x < this->width && posO.y >= 0 && posO.y < this->height) {
+	if (posO.x >= 0 && posO.x < this->width && posO.y >= 0 && posO.y < this->height)
+	{
 		return true;
 	}
 	return false;
@@ -82,34 +85,50 @@ bool MapData::isValidPos(Position posO)
 void MapData::updateVisiblePosition(Position pos)
 {
 	if (this->board[pos.y][pos.x] == this->block) { return; }
-	if (this->board[pos.y][pos.x] == this->door) { 
-		this->visiblePosition.insert({pos});
-		return; 
+	if (this->board[pos.y][pos.x] == this->door)
+	{
+		this->visiblePosition.insert({ pos });
+		return;
 	}
-	if (this->visiblePosition.find({pos}) == this->visiblePosition.end()) {
-		this->visiblePosition.insert({pos});
+	if (this->visiblePosition.find({ pos }) == this->visiblePosition.end())
+	{
+		this->visiblePosition.insert({ pos });
 
-		if (isValidPos(pos + dirUp)) {
+		if (isValidPos(pos + dirUp))
+		{
 			updateVisiblePosition(pos + dirUp);
 		}
-		if (isValidPos(pos + dirDown)) {
+		if (isValidPos(pos + dirDown))
+		{
 			updateVisiblePosition(pos + dirDown);
 		}
-		if (isValidPos(pos + dirRight)) {
+		if (isValidPos(pos + dirRight))
+		{
 			updateVisiblePosition(pos + dirRight);
 		}
-		if (isValidPos(pos + dirLeft)) {
+		if (isValidPos(pos + dirLeft))
+		{
 			updateVisiblePosition(pos + dirLeft);
 		}
 	}
 }
 
-
-
 bool MapData::isIntialPos(Position pos)
 {
-	for (auto p : this->intialPositions) {
+	for (auto p : this->intialPositions)
+	{
 		if (p == pos) { return true; }
 	}
 	return false;
+}
+
+void MapData::isOpenDoor(vector<Position> characterPoses)
+{
+	for (auto characterPos : characterPoses)
+	{
+		if (this->board[characterPos.y][characterPos.x]==this->door)
+		{
+			this->board[characterPos.y][characterPos.x] = this->space;
+		}
+	}
 }
