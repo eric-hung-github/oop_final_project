@@ -104,17 +104,7 @@ void MapData::updateVisiblePosition(Position pos)
 	}
 }
 
-bool MapData::isCharacterMoveable(Position pos )
-{
-	if (this->board[pos.y][pos.x] == '0')return true;
-	return false;
-}
 
-bool MapData::isMonsterMoveable(Position pos)
-{
-	if (this->board[pos.y][pos.x] != '1')return true;
-	return false;
-}
 
 bool MapData::isIntialPos(Position pos)
 {

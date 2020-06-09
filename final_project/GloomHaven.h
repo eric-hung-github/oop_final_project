@@ -12,6 +12,7 @@
 #include "CaracterSkill.h"
 
 #include "MapData.h"
+#include "Postition.h"
 
 #include <vector>
 #include <iostream>
@@ -63,6 +64,15 @@ public:
 	void charactersTurn();
 	void monstersTurn();
 	void execute();
+
+	// executing
+	bool isPositionConflict(Being* being, Position pos);
+
+	bool isCharacterMoveable(Being* being, Position pos);
+	bool isMonsterMoveable(Being* being, Position pos);
+
+	bool lockCharacter(Position pos, int Range, Character* character);
+	bool lockMonster(Position pos, int Range, Monster* monster);
 
 	// 
 	void updateGame();

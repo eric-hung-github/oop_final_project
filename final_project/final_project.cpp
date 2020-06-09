@@ -25,7 +25,7 @@ string monsterFileName = "monster.txt";
 string isPlay;
 string mapFileName;
 
-int main(char *argv[])
+int main(char* argv[])
 {
 	cin >> isPlay;
 

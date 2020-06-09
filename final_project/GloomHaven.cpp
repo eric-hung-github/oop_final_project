@@ -2,11 +2,14 @@
 
 using namespace std;
 
-bool minSortForActSp(act& a, act& b) {
-	if (a.sp < b.sp) {
+bool minSortForActSp(act& a, act& b)
+{
+	if (a.sp < b.sp)
+	{
 		return true;
 	}
-	else {
+	else
+	{
 		return false;
 	}
 }
@@ -14,7 +17,8 @@ bool minSortForActSp(act& a, act& b) {
 bool GloomHaven::loadCharcterData(string fileName)
 {
 	ifstream file(fileName);
-	if (!file.is_open()) {
+	if (!file.is_open())
+	{
 		cout << "open file " << fileName << " error!" << endl;
 		return false;
 	}
@@ -123,23 +127,27 @@ void GloomHaven::chooseCharcters()
 	int charcterNum = 0;
 	cin >> charcterNum;
 
-	for (int i = 0; i < charcterNum; i++) {
+	for (int i = 0; i < charcterNum; i++)
+	{
 
 		// choose charcter by name
 		string characterName;
 		cin >> characterName;
 
-		for (auto characterData : this->CharcterDatas) {
+		for (auto characterData : this->CharcterDatas)
+		{
 			// find character 
-			if (characterName == characterData.name) {
+			if (characterName == characterData.name)
+			{
 				// choose skills
 				int* skillsNum = new int[characterData.maxSkill];
-				for (int i = 0; i < characterData.maxSkill; i++) {
+				for (int i = 0; i < characterData.maxSkill; i++)
+				{
 					cin >> skillsNum[i];
 				}
 
 				Character newCharacter(characterData, skillsNum);
-				newCharacter.mapData = &this->map;
+				newCharacter.gameData = this;
 				this->Characters.insert({ i + 'A',newCharacter });
 				break;
 			}
@@ -175,21 +183,26 @@ void GloomHaven::generateMonster()
 		}
 
 		// if no nedd to generate
-		if (level[this->Characters.size() - 2] == 0) {
+		if (level[this->Characters.size() - 2] == 0)
+		{
 			continue;
 		}
 
 
-		for (auto monsterData : this->MonsterDatas) {
-			if (monsterData.name == name) {
+		for (auto monsterData : this->MonsterDatas)
+		{
+			if (monsterData.name == name)
+			{
 				Monster newMonster;
 				int hp, atk, range;
-				if (level[this->Characters.size() - 2] == 1) {
+				if (level[this->Characters.size() - 2] == 1)
+				{
 					hp = monsterData.hp;
 					atk = monsterData.atk;
 					range = monsterData.range;
 				}
-				else {
+				else
+				{
 					hp = monsterData.bossHp;
 					atk = monsterData.bossAtk;
 					range = monsterData.bossRange;
@@ -199,7 +212,7 @@ void GloomHaven::generateMonster()
 				newMonster.equipedSkills = newMonster.skills;
 				newMonster.name = name;
 				newMonster.pos = Position(posX, posY);
-				newMonster.mapData = &this->map;
+				newMonster.gameData = this;
 
 				this->Monsters.insert({ monsterCount + 'a',newMonster });
 				monsterCount++;
@@ -223,19 +236,22 @@ void GloomHaven::generateMonster()
 
 void GloomHaven::chooseIntialPos()
 {
-	for (auto& charcter : this->Characters) {
+	for (auto& charcter : this->Characters)
+	{
 		while (true)
 		{
 			string choosePosition;
 			cin >> choosePosition;
 
 			Position intialPos = *(this->map.intialPositions.end() - 1);// weird----
-			for (auto c : choosePosition) {
+			for (auto c : choosePosition)
+			{
 				if (c == 'e')continue;
 				intialPos = intialPos + Position::direction(c);
 			}
 
-			if (this->map.isIntialPos(intialPos)) {
+			if (this->map.isIntialPos(intialPos))
+			{
 				charcter.second.pos = intialPos;
 				this->map.updateVisiblePosition(intialPos);
 				break;
@@ -251,20 +267,23 @@ void GloomHaven::charactersTurn()
 
 	size_t totalTurns = this->Characters.size();
 
-	int** characterPlayCard = new int*[this->Characters.size()];
+	int** characterPlayCard = new int* [this->Characters.size()];
 
-	while (totalTurns > 0) {
+	while (totalTurns > 0)
+	{
 		char characterIndex;
 		string command;
 		cin >> characterIndex >> command;
 
 		if (command == "-1")// long rest
 		{
-			if (this->Characters[characterIndex].playedSkill.size() < 2) {
+			if (this->Characters[characterIndex].playedSkill.size() < 2)
+			{
 
-				break;
+
 			}
-			else {
+			else
+			{
 				act newAct;
 				newAct.actions[0] = new ActRest;
 				newAct.sp = 99;
@@ -280,11 +299,13 @@ void GloomHaven::charactersTurn()
 		{
 			// cout card
 			cout << "hand: ";
-			for (auto hasSkill : this->Characters[characterIndex].skills) {
+			for (auto hasSkill : this->Characters[characterIndex].skills)
+			{
 				cout << hasSkill.first << ' ';
 			}
 			cout << "; discard: ";
-			for (auto playedSkill : this->Characters[characterIndex].playedSkill) {
+			for (auto playedSkill : this->Characters[characterIndex].playedSkill)
+			{
 				cout << playedSkill.first << ' ';
 			}
 			cout << endl;
@@ -322,7 +343,8 @@ void GloomHaven::charactersTurn()
 		else
 			newAct.sp = character.second.skills[chosecard[i][1]].sp;
 
-		if (merge[0] == chosecard[i][1]) {
+		if (merge[0] == chosecard[i][1])
+		{
 			if (merge[1] == 'u')
 			{
 				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
@@ -354,9 +376,11 @@ void GloomHaven::charactersTurn()
 
 void GloomHaven::monstersTurn()
 {
-	for (auto& monster : this->Monsters) {
+	for (auto& monster : this->Monsters)
+	{
 		// is valid
-		if (map.visiblePosition.find(monster.second.pos) == map.visiblePosition.end()) {
+		if (map.visiblePosition.find(monster.second.pos) == map.visiblePosition.end())
+		{
 			continue;
 		}
 		// is Alive
@@ -371,7 +395,8 @@ void GloomHaven::monstersTurn()
 		act newAct;
 		newAct.being = &(monster.second);
 		newAct.sp = skill.sp;
-		for (auto& act : skill.act) {
+		for (auto& act : skill.act)
+		{
 			newAct.actions.push_back(act);
 		}
 		this->acts.push_back(newAct);
@@ -383,8 +408,10 @@ void GloomHaven::execute()
 	sort(this->acts.begin(), this->acts.end(), minSortForActSp);
 
 	// one by one execute
-	for (auto& act : this->acts) {
-		for (auto& action : act.actions) {
+	for (auto& act : this->acts)
+	{
+		for (auto& action : act.actions)
+		{
 			action->execute(act.being);
 		}
 		this->updateGame();
@@ -392,9 +419,46 @@ void GloomHaven::execute()
 	}
 }
 
+bool GloomHaven::isPositionConflict(Being* being, Position pos)
+{
+	for (auto character : this->Characters)
+	{
+		if (&character.second != being && character.second.pos == pos)return true;
+	}
+
+	for (auto monster : this->Monsters)
+	{
+		if (&monster.second != being && monster.second.pos == pos)return true;
+	}
+	return false;
+}
+
+bool GloomHaven::isCharacterMoveable(Being* being, Position pos)
+{
+	if (this->map.board[pos.y][pos.x] == '0' && !isPositionConflict(being, pos))return true;
+	return false;
+}
+
+bool GloomHaven::isMonsterMoveable(Being* being, Position pos)
+{
+	if (this->map.board[pos.y][pos.x] != '1' && !isPositionConflict(being, pos))return true;
+	return false;
+}
+
+bool GloomHaven::lockCharacter(Position pos, int Range, Character* character)
+{
+	return false;
+}
+
+bool GloomHaven::lockMonster(Position pos, int Range, Monster* monster)
+{
+	return false;
+}
+
 void GloomHaven::updateGame()
 {
-	for (auto character : this->Characters) {
+	for (auto character : this->Characters)
+	{
 		map.updateVisiblePosition(character.second.pos);
 	}
 
@@ -403,32 +467,39 @@ void GloomHaven::updateGame()
 void GloomHaven::draw()
 {
 	char** drawBoard = new char* [this->map.height];
-	for (int i = 0; i < this->map.height; i++) {
+	for (int i = 0; i < this->map.height; i++)
+	{
 		drawBoard[i] = new char[this->map.width];
 		for (int j = 0; j < this->map.width; j++)
 		{
 			Position pos = Position(j, i);
-			if (map.visiblePosition.find({ j,i }) != map.visiblePosition.end()) {
+			if (map.visiblePosition.find({ j,i }) != map.visiblePosition.end())
+			{
 				drawBoard[i][j] = map.board[i][j];
 			}
-			else {
+			else
+			{
 				drawBoard[i][j] = ' ';
 			}
 		}
 	}
 
-	for (auto character : this->Characters) {
+	for (auto character : this->Characters)
+	{
 		drawBoard[character.second.pos.y][character.second.pos.x] = character.first;
 	}
 
-	for (auto monster : this->Monsters) {
-		if (this->map.visiblePosition.find(monster.second.pos) == this->map.visiblePosition.end()) {
+	for (auto monster : this->Monsters)
+	{
+		if (this->map.visiblePosition.find(monster.second.pos) == this->map.visiblePosition.end())
+		{
 			continue;
 		}
 		drawBoard[monster.second.pos.y][monster.second.pos.x] = monster.first;
 	}
 
-	for (int i = 0; i < this->map.height; i++) {
+	for (int i = 0; i < this->map.height; i++)
+	{
 		for (int j = 0; j < this->map.width; j++)
 		{
 			cout << drawBoard[i][j];

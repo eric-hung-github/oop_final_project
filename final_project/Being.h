@@ -3,15 +3,16 @@
 
 #include "Postition.h"
 #include "Action.h"
-#include "MapData.h"
 
 
 using namespace std;
 
+class GloomHaven;
+
 class Being
 {
 public:
-	MapData *mapData;
+	GloomHaven *gameData;
 
 	Position pos;
 	string name;

@@ -90,5 +90,3 @@ void CaracterSkill::printSkill()
 
 	cout << endl;
 }
-
-

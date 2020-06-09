@@ -55,9 +55,6 @@ public:
 
 	void updateVisiblePosition(Position intialPos);
 
-	bool isCharacterMoveable(Position pos);
-	bool isMonsterMoveable(Position pos);
-
 	bool isIntialPos(Position pos);
 };
 

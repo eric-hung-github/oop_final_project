@@ -1,4 +1,5 @@
 #include "Postition.h"
+#include <math.h>
 
 Position::Position()
 {
@@ -34,7 +35,7 @@ bool Position::operator==(const Position& pos)
 
 double Position::countRange(Position a, Position b)
 {
-	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+	return abs(a.x-b.x)+abs(a.y-b.y);
 }
 
 Position Position::direction(char c)

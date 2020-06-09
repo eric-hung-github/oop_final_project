@@ -64,6 +64,7 @@ public:
 class ActRest :public Action
 {
 public:
+	const static int restHeal = 2;
 	//ActRest(int point) :Action::Action(point) {}
 
 	void execute(Being *being)override;

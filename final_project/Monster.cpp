@@ -1,4 +1,5 @@
 #include "Monster.h"
+#include "GloomHaven.h"
 
 Monster::Monster()
 {
@@ -20,11 +21,16 @@ Monster::Monster(int hp, int atk, int range)
 
 void Monster::move(ActMove action)
 {
-	for (auto step : action.steps) {
-		if (this->mapData->isMonsterMoveable(this->pos + Position::direction(step))) {
+	for (auto step : action.steps)
+	{
+		if (this->gameData->isMonsterMoveable(this, this->pos + Position::direction(step)))
+		{
+
 			this->pos = this->pos + Position::direction(step);
+
 		}
-		else {
+		else
+		{
 			break;
 		}
 	}
@@ -32,4 +38,25 @@ void Monster::move(ActMove action)
 
 void Monster::attack(ActAttack action)
 {
+	Character* targetCharacter=new Character;
+	if (this->gameData->lockCharacter(this->pos, action.range,targetCharacter))
+	{
+		//targetCharacter->hurt(action.point);
+	}
+	else
+	{
+		return;
+	}
+}
+
+void Monster::hurt(int damage)
+{
+	if (damage - this->sheldPoint < 0)
+	{
+		this->sheldPoint -= damage;
+	}
+	else
+	{
+		this->hp -= (damage - this->sheldPoint);
+	}
 }

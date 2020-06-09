@@ -20,6 +20,7 @@ public:
 
 	void move(ActMove action)override;
 	void attack(ActAttack action)override;
+	void hurt(int damage);
 	void longRest()override;
 };
 
