@@ -242,13 +242,39 @@ void GloomHaven::charactersTurn()
 {
 	size_t totalTurns = this->Characters.size();
 
-	char chosecard[4][3] = { 0 };
-	
-	for (int i = 0; i < 4; i++) 
+	std::map<char, pair<int, int>> chosecard;
+	char chararcterindex;
+	string card;
+	for (int i=0;i<totalTurns;i++)
 	{
-		for (int j = 0; j < 3; j++) 
+		cin >> chararcterindex;
+		getline(cin, card);
+		if (card == "check") {
+			// cout card
+			cout << "hand: ";
+			for (auto hasSkill : this->Characters[chararcterindex].skills) {
+				cout << hasSkill.first << ' ';
+			}
+			cout << "; discard: ";
+			for (auto playedSkill : this->Characters[chararcterindex].playedSkill) {
+				cout << playedSkill.first << ' ';
+			}
+			cout << endl;
+		}
+		else if (card == "-1")
 		{
-			cin >> chosecard[i][j];
+			act newAct;
+			newAct.sp = 99;
+			newAct.actions[0] = new ActRest;
+			newAct.being = &this->Characters[chararcterindex];
+			this->acts.push_back(newAct);
+		}
+		else
+		{
+			stringstream ss(card);
+			int card[2];
+			ss >> card[0] >> card[1];
+			chosecard.insert(std::pair<char, pair<int, int>>(chararcterindex, std::make_pair(card[0], card[1])));
 		}
 	}
 	for (auto& character: this->Characters)
@@ -257,36 +283,41 @@ void GloomHaven::charactersTurn()
 		string merge;
 		cin >> merge;
 		act newAct;
-        CaracterSkill newskill1(character.second.skills[chosecard[i][1]]);
-        CaracterSkill newskill2(character.second.skills[chosecard[i][2]]);
+        CaracterSkill newskill1(character.second.skills[chosecard[character.first].first]);
+        CaracterSkill newskill2(character.second.skills[chosecard[character.first].second]);
 		newAct.being = &character.second;
-		if (character.second.skills[chosecard[i][1]].sp >
-			character.second.skills[chosecard[i][2]].sp)
-			newAct.sp = character.second.skills[chosecard[i][2]].sp;
+		if (character.second.skills[chosecard[character.first].first].sp >
+			character.second.skills[chosecard[character.first].second].sp)
+			newAct.sp = character.second.skills[chosecard[character.first].second].sp;
 		else
-			newAct.sp = character.second.skills[chosecard[i][1]].sp;
+			newAct.sp = character.second.skills[chosecard[character.first].first].sp;
 		
-		if (merge[0] == chosecard[i][1]) {
+		if (merge[0] == chosecard[character.first].first) {
 			if (merge[1] == 'u')
 			{
-                newAct.actions.push_back(newskill1.upAct[i]);
+                newAct.actions.push_back(newskill1.upAct[chosecard[character.first].first]);
+				newAct.actions.push_back(newskill2.downAct[chosecard[character.first].second]);
 			}
 			else if (merge[1] == 'd') 
 			{
-				
+				newAct.actions.push_back(newskill1.downAct[chosecard[character.first].first]);
+				newAct.actions.push_back(newskill2.upAct[chosecard[character.first].second]);
 			}
 		}
-		else if (merge[1] == chosecard[i][2]) 
+		else if (merge[1] == chosecard[character.first].second) 
 		{
 			if (merge[1] == 'u')
 			{
-				
+				newAct.actions.push_back(newskill2.upAct[chosecard[character.first].second]);
+				newAct.actions.push_back(newskill1.downAct[chosecard[character.first].first]);
 			}
 			else if (merge[1] == 'd')
 			{
-				
+				newAct.actions.push_back(newskill2.downAct[chosecard[character.first].second]);
+				newAct.actions.push_back(newskill1.upAct[chosecard[character.first].first]);
 			}
 		}
+		this->acts.push_back(newAct);
 		i++;
 	}
 	

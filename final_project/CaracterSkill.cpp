@@ -71,7 +71,8 @@ CaracterSkill::CaracterSkill(string information)
 	enterCharcterAct(infor, this->downAct);
 }
 
-CaracterSkill::CaracterSkill(CaracterSkill const  &input)
+
+CaracterSkill::CaracterSkill(CaracterSkill const& input)
 {
     this->upAct=input.upAct;
     this->downAct=input.downAct;
