@@ -11,7 +11,8 @@ using namespace std;
 class Character :public Being
 {
 public:
-	map<int,CaracterSkill> equipedSkills;
+
+	map<int,CaracterSkill> playedSkill;
 	map<int,CaracterSkill> skills;
 
 	Character();

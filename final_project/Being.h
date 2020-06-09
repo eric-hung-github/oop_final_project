@@ -3,6 +3,7 @@
 
 #include "Postition.h"
 #include "Action.h"
+#include "MapData.h"
 
 
 using namespace std;
@@ -10,6 +11,8 @@ using namespace std;
 class Being
 {
 public:
+	MapData *mapData;
+
 	Position pos;
 	string name;
 	int hp,maxHp,sheldPoint;

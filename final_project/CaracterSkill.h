@@ -16,6 +16,7 @@ public:
 	vector<Action*>upAct;
 	vector<Action*>downAct;
 
+	CaracterSkill();
 	CaracterSkill(string information);
 
 	void printSkill();

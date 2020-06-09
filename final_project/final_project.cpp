@@ -64,9 +64,8 @@ int main(char *argv[])
 		// is other trigger ex open door all dead
 
 		// is win or game over
+		game.updateGame();
 
-
-		game.draw();
 		break;
 	}
 }

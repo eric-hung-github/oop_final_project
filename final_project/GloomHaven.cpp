@@ -139,6 +139,7 @@ void GloomHaven::chooseCharcters()
 				}
 
 				Character newCharacter(characterData, skillsNum);
+				newCharacter.mapData = &this->map;
 				this->Characters.insert({ i + 'A',newCharacter });
 				break;
 			}
@@ -195,8 +196,10 @@ void GloomHaven::generateMonster()
 				}
 				newMonster = Monster(hp, atk, range);
 				newMonster.skills = monsterData.skills;
+				newMonster.equipedSkills = newMonster.skills;
 				newMonster.name = name;
 				newMonster.pos = Position(posX, posY);
+				newMonster.mapData = &this->map;
 
 				this->Monsters.insert({ monsterCount + 'a',newMonster });
 				monsterCount++;
@@ -228,21 +231,64 @@ void GloomHaven::chooseIntialPos()
 
 			Position intialPos = *(this->map.intialPositions.end() - 1);// weird----
 			for (auto c : choosePosition) {
+				if (c == 'e')continue;
 				intialPos = intialPos + Position::direction(c);
 			}
 
 			if (this->map.isIntialPos(intialPos)) {
 				charcter.second.pos = intialPos;
+				this->map.updateVisiblePosition(intialPos);
 				break;
 			}
 		}
 	}
+
 }
 
 void GloomHaven::charactersTurn()
 {
-	/*
 	size_t totalTurns = this->Characters.size();
+
+	while (totalTurns > 0) {
+		char characterIndex;
+		string command;
+		cin >> characterIndex >> command;
+
+		if (command=="-1")// long rest
+		{
+			if (this->Characters[characterIndex].playedSkill.size() < 2) {
+
+				break;
+			}
+			else {
+				act newAct;
+				newAct.actions[0] = new ActRest;
+				newAct.sp = 99;
+				newAct.being = &this->Characters[characterIndex];
+
+				this->acts.push_back(newAct);
+			}
+
+		}
+		else if (command =="check")// check
+		{	
+			// cout card
+			cout << "hand: ";
+			for (auto hasSkill : this->Characters[characterIndex].skills) {
+				cout << hasSkill.first << ' ';
+			}
+			cout << "; discard: ";
+			for (auto playedSkill : this->Characters[characterIndex].playedSkill) {
+				cout << playedSkill.first << ' ';
+			}
+			cout << endl;
+		}
+		else // play card
+		{
+
+
+		}
+	}
 
 	char chosecard[4][3] = { 0 };
 
@@ -269,37 +315,49 @@ void GloomHaven::charactersTurn()
 		if (merge[0] == chosecard[i][1]) {
 			if (merge[1] == 'u')
 			{
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
+				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
+				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
 			}
 			else if (merge[1] == 'd')
 			{
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
+				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
+				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
 			}
 		}
 		else if (merge[1] == chosecard[i][2])
 		{
 			if (merge[1] == 'u')
 			{
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
+				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
+				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
 			}
 			else if (merge[1] == 'd')
 			{
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
-				newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
+				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
+				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
 			}
 		}
 		i++;
 	}
-	*/
+
 }
 
 void GloomHaven::monstersTurn()
 {
 	for (auto& monster : this->Monsters) {
-		MonsterSkill skill = monster.second.skills[rand() % monster.second.skills.size()];
+		// is valid
+		if (map.visiblePosition.find(monster.second.pos) == map.visiblePosition.end()) {
+			continue;
+		}
+		// is Alive
+		if (monster.second.hp <= 0)continue;
+
+		int skillIndex = rand() % monster.second.skills.size();
+		MonsterSkill skill = monster.second.skills[skillIndex];
+		monster.second.skills.erase(monster.second.skills.begin() + skillIndex);
+
+		if (skill.redraw)monster.second.skills = monster.second.equipedSkills;
+
 		act newAct;
 		newAct.being = &(monster.second);
 		newAct.sp = skill.sp;
@@ -319,19 +377,28 @@ void GloomHaven::execute()
 		for (auto& action : act.actions) {
 			action->execute(act.being);
 		}
+		this->updateGame();
+		this->draw();
 	}
+}
+
+void GloomHaven::updateGame()
+{
+	for (auto character : this->Characters) {
+		map.updateVisiblePosition(character.second.pos);
+	}
+
 }
 
 void GloomHaven::draw()
 {
-	map.updateVisiblePosition(this->Characters['A'].pos);
 	char** drawBoard = new char* [this->map.height];
 	for (int i = 0; i < this->map.height; i++) {
 		drawBoard[i] = new char[this->map.width];
 		for (int j = 0; j < this->map.width; j++)
 		{
 			Position pos = Position(j, i);
-			if (map.visiblePosition.find({j,i})!=map.visiblePosition.end()) {
+			if (map.visiblePosition.find({ j,i }) != map.visiblePosition.end()) {
 				drawBoard[i][j] = map.board[i][j];
 			}
 			else {
@@ -345,6 +412,9 @@ void GloomHaven::draw()
 	}
 
 	for (auto monster : this->Monsters) {
+		if (this->map.visiblePosition.find(monster.second.pos) == this->map.visiblePosition.end()) {
+			continue;
+		}
 		drawBoard[monster.second.pos.y][monster.second.pos.x] = monster.first;
 	}
 

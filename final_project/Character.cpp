@@ -3,6 +3,7 @@
 
 Character::Character()
 {
+
 }
 
 Character::Character(CharcterData& cdata, int skillsNum[])
@@ -15,7 +16,7 @@ Character::Character(CharcterData& cdata, int skillsNum[])
 	for (int i = 0; i < cdata.maxSkill; i++) {
 		this->skills.insert({ skillsNum[i],cdata.skills[skillsNum[i]] });
 	}
-	this->equipedSkills = this->skills;
+
 }
 
 void Character::move(Action* action)

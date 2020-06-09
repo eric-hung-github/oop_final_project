@@ -65,7 +65,7 @@ public:
 	void execute();
 
 	// 
-	void updateGameState();
+	void updateGame();
 
 	// draw board
 	void draw();
