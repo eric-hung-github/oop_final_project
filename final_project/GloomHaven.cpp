@@ -133,11 +133,13 @@ bool GloomHaven::loadMonsterDatas(string fileName)
 
 bool GloomHaven::loadMapData(string fileName)
 {
+
 	return this->map.load(fileName);
 }
 
 void GloomHaven::chooseCharcters()
 {
+	cout << "Please enter the amount of characters(2~4): ";
 	int charcterNum = 0;
 	cin >> charcterNum;
 
@@ -265,6 +267,7 @@ void GloomHaven::chooseIntialPos()
 	for (auto& charcter : this->Characters)
 	{
 		this->map.updateVisiblePosition(intialPos);
+		system("CLS");
 		this->map.drawSetIntailPos(settedPos);
 
 		while (true)
@@ -307,11 +310,20 @@ void GloomHaven::chooseIntialPos()
 
 	}
 	this->map.updateVisiblePosition(intialPos);
+	system("CLS");
 	this->map.drawSetIntailPos(settedPos);
 }
 
 void GloomHaven::charactersTurn()
 {
+	for (auto character : this->Characters)
+	{
+		if (character.second.skills.size() < 2 && character.second.playedSkill.size() < 2)
+		{
+			this->Characters.erase(character.first);
+		}
+	}
+
 	cin.ignore();
 
 	size_t totalTurns = this->Characters.size();
@@ -357,7 +369,10 @@ void GloomHaven::charactersTurn()
 			else
 			{
 				std::map<int, CaracterSkill> choosedSkill;
-				choosedSkill.insert(make_pair(-1, CaracterSkill()));
+				CaracterSkill rest;
+				rest.sp = 99;
+				choosedSkill.insert(make_pair(-1, rest));
+				choosedSkill.insert(make_pair(-2, rest));
 				characterChooseCards.insert(make_pair(chararcterIndex, choosedSkill));
 				totalTurns -= 1;
 			}
@@ -380,6 +395,11 @@ void GloomHaven::charactersTurn()
 				choosedSkill.insert(skillOne);
 				choosedSkill.insert(skillTwo);
 				characterChooseCards.insert(make_pair(chararcterIndex, choosedSkill));
+
+				this->Characters[chararcterIndex].playedSkill.insert({ cards[0],this->Characters[chararcterIndex].skills[cards[0]] });
+				this->Characters[chararcterIndex].playedSkill.insert({ cards[1],this->Characters[chararcterIndex].skills[cards[1]] });
+				this->Characters[chararcterIndex].skills.erase(cards[0]);
+				this->Characters[chararcterIndex].skills.erase(cards[1]);
 
 				totalTurns -= 1;
 			}
@@ -413,6 +433,10 @@ void GloomHaven::monstersTurn()
 
 void GloomHaven::monsterPlayCard(pair<char, MonsterSkill> skill)
 {
+	//if (this->Characters[skill.first].hp <= 0)return;
+
+	cout << skill.first << "'s turn\tcard:" << endl;
+
 	for (auto action : skill.second.act)
 	{
 		this->execute(&this->Monsters[skill.first], action);
@@ -425,65 +449,71 @@ void GloomHaven::monsterPlayCard(pair<char, MonsterSkill> skill)
 
 void GloomHaven::execute(Being* being, Action* action)
 {
+	//system("CLS");
 	action->execute(being);
+	this->executeUpdate();
 	this->draw();
 }
 
 void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards)
 {
+
+
+	auto character = &this->Characters.find(cards.first)->second;
+	int playCard;
+	char playPart;
+
+	if ((*cards.second.begin()).first < 0)
+	{
+		cout << cards.first << "'s turn\tZzzZZzzZZZzzzz..." << endl;
+		ActRest rest;
+		this->execute(character, &rest);
+		return;
+	}
+
 	cout << cards.first << "'s turn\tcard:";
 	for (auto index : cards.second)
 	{
 		cout << ' ' << index.first;
 	}
 	cout << endl;
-	
-	auto character = *this->Characters.find(cards.first);
-	int playCard;
-	char playPart;
-
-	if ((*cards.second.begin()).first == -1)
-	{
-		ActRest rest;
-		this->execute(&character.second, &rest);
-		return;
-	}
 
 	cin >> playCard >> playPart;
 
-	if (playPart = 'u')
+	if (playPart == 'u')
 	{
-		for (auto action : cards.second[playPart].upAct)
+		for (auto action : cards.second[playCard].upAct)
 		{
-			this->execute(&character.second, action);
+			this->execute(character, action);
 		}
 
 		cards.second.erase(playCard);
 
 		for (auto action : (*cards.second.begin()).second.downAct)
 		{
-			this->execute(&character.second, action);
+			this->execute(character, action);
 		}
 	}
-	else if (playPart = 'd')
+	else if (playPart == 'd')
 	{
-		for (auto action : cards.second[playPart].downAct)
+		for (auto action : cards.second[playCard].downAct)
 		{
-			this->execute(&character.second, action);
+			this->execute(character, action);
 		}
 
 		cards.second.erase(playCard);
 
 		for (auto action : (*cards.second.begin()).second.upAct)
 		{
-			this->execute(&character.second, action);
+			this->execute(character, action);
 		}
 	}
 
 }
 
-void GloomHaven::runTurn()
+bool GloomHaven::runTurn()
 {
+
 	vector<pair<char, std::map<int, CaracterSkill>>> charactercard;
 	vector < pair<char, MonsterSkill>> monstercard;
 
@@ -503,12 +533,18 @@ void GloomHaven::runTurn()
 	auto characterChooseCard = charactercard.begin();
 	auto monsterChooseCard = monstercard.begin();
 
-	cout << "Round: " << this->round << endl;
+
 
 	while (characterChooseCard != charactercard.end() || monsterChooseCard != monstercard.end())
 	{
+
 		if (characterChooseCard == charactercard.end())
 		{
+			if (this->Monsters[monsterChooseCard->first].hp <= 0)
+			{
+				monsterChooseCard++;
+				continue;
+			}
 			cout << this->Monsters[monsterChooseCard->first].name << ' ';
 			monsterChooseCard->second.printSkill();
 			monsterChooseCard++;
@@ -516,6 +552,11 @@ void GloomHaven::runTurn()
 		}
 		if (monsterChooseCard == monstercard.end())
 		{
+			if (this->Characters[characterChooseCard->first].hp <= 0)
+			{
+				characterChooseCard++;
+				continue;
+			}
 			cout << characterChooseCard->first << ' ';
 			cout << characterChooseCard->second.begin()->second.sp << ' ';
 			for (auto skillIndex : characterChooseCard->second)
@@ -529,12 +570,22 @@ void GloomHaven::runTurn()
 
 		if (characterChooseCard->second.begin()->second.sp > monsterChooseCard->second.sp)
 		{
+			if (this->Monsters[monsterChooseCard->first].hp <= 0)
+			{
+				monsterChooseCard++;
+				continue;
+			}
 			cout << this->Monsters[monsterChooseCard->first].name << ' ';
 			monsterChooseCard->second.printSkill();
 			monsterChooseCard++;
 		}
 		else
 		{
+			if (this->Characters[characterChooseCard->first].hp <= 0)
+			{
+				characterChooseCard++;
+				continue;
+			}
 			cout << characterChooseCard->first << ' ';
 			cout << characterChooseCard->second.begin()->second.sp << ' ';
 			for (auto skillIndex : characterChooseCard->second)
@@ -551,28 +602,54 @@ void GloomHaven::runTurn()
 
 	while (characterChooseCard != charactercard.end() || monsterChooseCard != monstercard.end())
 	{
+		if (this->gameOver)
+		{
+			cout << "You win!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+			return true;
+		}
+
 		if (characterChooseCard == charactercard.end())
 		{
+			if (this->Monsters[monsterChooseCard->first].hp <= 0)
+			{
+				monsterChooseCard++;
+				continue;
+			}
 			this->monsterPlayCard(*monsterChooseCard++);
 			continue;
 		}
 		if (monsterChooseCard == monstercard.end())
 		{
+			if (this->Characters[characterChooseCard->first].hp <= 0)
+			{
+				characterChooseCard++;
+				continue;
+			}
 			this->characterPlayCard(*characterChooseCard++);
 			continue;
 		}
 
 		if (characterChooseCard->second.begin()->second.sp > monsterChooseCard->second.sp)
 		{
+			if (this->Monsters[monsterChooseCard->first].hp <= 0)
+			{
+				monsterChooseCard++;
+				continue;
+			}
 			this->monsterPlayCard(*monsterChooseCard++);
 		}
 		else
 		{
+			if (this->Characters[characterChooseCard->first].hp <= 0)
+			{
+				characterChooseCard++;
+				continue;
+			}
 			this->characterPlayCard(*characterChooseCard++);
 		}
 	}
 
-
+	return false;
 }
 
 bool GloomHaven::isPositionConflict(Being* being, Position pos)
@@ -603,6 +680,9 @@ bool GloomHaven::isMonsterMoveable(Being* being, Position pos)
 
 bool GloomHaven::isAttackable(Position sub, Position target, int range)
 {
+	//yayay
+	return true;
+
 	if (Position::countRange(sub, target) > range)return false;
 
 	std::set<Position> checkPoses;
@@ -625,24 +705,84 @@ bool GloomHaven::isAttackable(Position sub, Position target, int range)
 	return true;
 }
 
-bool GloomHaven::lockCharacter(Position pos, int Range, Character* character)
+bool GloomHaven::lockCharacter(Position pos, int range, Character* characterPtr)
 {
+	double minRange = Position::countRange(this->Characters.begin()->second.pos, pos);
+	characterPtr = &this->Characters.begin()->second;
+	for (auto character : this->Characters)
+	{
 
+		if (Position::countRange(character.second.pos, pos) < minRange)
+		{
+			minRange = Position::countRange(character.second.pos, pos);
+			characterPtr = &character.second;
+		}
+	}
+
+	if (this->isAttackable(pos, characterPtr->pos, range))
+	{
+		return true;
+	}
 	return false;
 }
 
 bool GloomHaven::lockMonster(Position pos, int Range, Monster* monster)
 {
-	return false;
+	return true;
 }
 
-void GloomHaven::updateGame()
+void GloomHaven::executeUpdate()
 {
+	this->map.visiblePosition.clear();
 	for (auto character : this->Characters)
 	{
+		this->map.isOpenDoor({ character.second.pos });
 		map.updateVisiblePosition(character.second.pos);
 	}
 
+	for (auto monster : this->Monsters)
+	{
+		if (monster.second.hp <= 0)
+		{
+			this->Monsters.erase(monster.first);
+			break;
+		}
+	}
+	if (this->Monsters.size() == 0)
+	{
+
+		this->gameOver = true;
+	}
+
+}
+
+bool GloomHaven::roundUpdate()
+{
+	this->characterChooseCards.clear();
+	this->monsterChooseCards.clear();
+
+	for (auto c : this->Characters)
+	{
+		c.second.sheldPoint = 0;
+	}
+
+	for (auto c : this->Monsters)
+	{
+		c.second.sheldPoint = 0;
+	}
+
+	if (this->Characters.size() == 0)
+	{
+		return false;
+	}
+
+	vector<Position> characterPos;
+	for (auto c : this->Characters)
+	{
+		characterPos.push_back(c.second.pos);
+	}
+
+	return true;
 }
 
 void GloomHaven::draw()

@@ -39,13 +39,13 @@ void Character::move(ActMove action)
 		bool validMove = true;
 		for (auto step : steps)
 		{
-			if (this->gameData->isCharacterMoveable(this,nextPos+Position::direction(step)))	
+			if (this->gameData->isCharacterMoveable(this, nextPos + Position::direction(step)))
 			{
 				nextPos = nextPos + Position::direction(step);
 			}
 			else
 			{
-				cout << "Invalid Move"<<endl;
+				cout << "Invalid Move" << endl;
 				validMove = false;
 			}
 		}
@@ -61,8 +61,16 @@ void Character::move(ActMove action)
 void Character::attack(ActAttack action)
 {
 	char targetIndex;
-	while (cin>>targetIndex)
+
+	while (cin >> targetIndex)
 	{
+		if (targetIndex == '0')return;
+		Monster* targetMonster = &this->gameData->Monsters[targetIndex];
+		if (this->gameData->lockMonster(this->pos, action.range, targetMonster))
+		{
+			targetMonster->hurt(action.point);
+			break;
+		}
 
 	}
 
@@ -70,6 +78,7 @@ void Character::attack(ActAttack action)
 
 void Character::hurt(int damage)
 {
+	cout << this->name << "was hurt " << damage << endl;
 	if (damage - this->sheldPoint < 0)
 	{
 		this->sheldPoint -= damage;
@@ -82,5 +91,20 @@ void Character::hurt(int damage)
 
 void Character::longRest()
 {
+	int index;
+	cout << "pleas discard";
+	for (auto skill : this->playedSkill)
+	{
+		cout << ' ' << skill.first;
+	}
+	cout << endl;
+	cin >> index;
+	this->playedSkill.erase(index);
+	for (auto skill : this->playedSkill)
+	{
+		this->skills.insert(skill);
+	}
+	this->playedSkill.clear();
 	this->heal(ActRest::restHeal);
+	cout << "succees discard and heal 2 hp" << endl;
 }

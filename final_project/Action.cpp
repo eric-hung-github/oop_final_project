@@ -39,7 +39,15 @@ void ActSheild::execute(Being* being)
 // move
 void ActMove::execute(Being* being)
 {
-	cout << being->name << " move: " << this->point << endl;
+	if (this->steps != "")
+	{
+		cout << being->name << " move: " << this->steps << endl;
+	}
+	else
+	{
+
+		cout << being->name << " move: " << this->point << endl;
+	}
 	being->move(*this);
 }
 

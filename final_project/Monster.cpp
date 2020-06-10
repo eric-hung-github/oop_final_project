@@ -38,10 +38,10 @@ void Monster::move(ActMove action)
 
 void Monster::attack(ActAttack action)
 {
-	Character* targetCharacter=new Character;
-	if (this->gameData->lockCharacter(this->pos, action.range,targetCharacter))
+	Character* targetCharacter = new Character;
+	if (this->gameData->lockCharacter(this->pos, action.range, targetCharacter))
 	{
-		//targetCharacter->hurt(action.point);
+		targetCharacter->hurt(action.point);
 	}
 	else
 	{
@@ -51,6 +51,7 @@ void Monster::attack(ActAttack action)
 
 void Monster::hurt(int damage)
 {
+	cout << this->name << "was hurt " << damage << endl;
 	if (damage - this->sheldPoint < 0)
 	{
 		this->sheldPoint -= damage;

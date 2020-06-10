@@ -84,6 +84,7 @@ bool MapData::isValidPos(Position posO)
 
 void MapData::updateVisiblePosition(Position pos)
 {
+	
 	if (this->board[pos.y][pos.x] == this->block) { return; }
 	if (this->board[pos.y][pos.x] == this->door)
 	{
@@ -129,8 +130,10 @@ void MapData::isOpenDoor(vector<Position> characterPoses)
 		if (this->board[characterPos.y][characterPos.x]==this->door)
 		{
 			this->board[characterPos.y][characterPos.x] = this->space;
+			this->updateVisiblePosition(characterPos);
 		}
 	}
+	
 }
 
 void MapData::drawSetIntailPos(vector<pair<char, Position>> beingPoses)

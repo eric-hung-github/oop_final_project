@@ -27,6 +27,7 @@ class GloomHaven
 {
 public:
 	int round = 1;
+	bool gameOver = false;
 
 	vector<CharcterData> CharcterDatas;
 	vector<MonsterData> MonsterDatas;
@@ -58,7 +59,7 @@ public:
 	// game loop
 	void charactersTurn();
 	void monstersTurn();
-	void runTurn();
+	bool runTurn();
 	void characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards);
 	void monsterPlayCard(pair<char, MonsterSkill>);
 	void execute(Being* being, Action* action);
@@ -75,7 +76,8 @@ public:
 	bool lockMonster(Position pos, int Range, Monster* monster);
 
 	// 
-	void updateGame();
+	void executeUpdate();
+	bool roundUpdate();
 
 	// draw board
 	void draw();
