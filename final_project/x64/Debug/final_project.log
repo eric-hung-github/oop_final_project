@@ -1,12 +1,10 @@
 ﻿  Action.cpp
   Being.cpp
-  BeingData.cpp
   CaracterSkill.cpp
   CharcterData.cpp
   GloomHaven.cpp
 C:\Users\Hsiehyubin\source\repos\xioubin\oop_final_project\final_project\GloomHaven.cpp(420,17): warning C4101: 'anotherPLayPart': 未參考的區域變數
   MonsterData.cpp
-  Skill.cpp
   Character.cpp
   final_project.cpp
 C:\Users\Hsiehyubin\source\repos\xioubin\oop_final_project\final_project\final_project.cpp(62,16): error C2660: 'GloomHaven::execute': 函式不使用 0 引數

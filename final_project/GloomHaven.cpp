@@ -151,6 +151,7 @@ bool GloomHaven::loadMapData(string fileName)
 void GloomHaven::chooseCharcters()
 {
 	int charcterNum = 0;
+	cout << "Please enter the number of characters (2~4): ";
 	cin >> charcterNum;
 
 	for (int i = 0; i < charcterNum; i++)
