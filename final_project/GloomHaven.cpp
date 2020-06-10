@@ -251,6 +251,7 @@ void GloomHaven::generateMonster()
 void GloomHaven::chooseIntialPos()
 {
 	Position intialPos = (this->map.intialPositions[0]);
+	this->map.updateVisiblePosition(intialPos);
 	vector<pair<char, Position>>settedPos;
 	for (auto monster : this->Monsters)
 	{
@@ -418,7 +419,7 @@ void GloomHaven::monsterPlayCard(pair<char, MonsterSkill> skill)
 	}
 	if (skill.second.redraw)
 	{
-		this->Monsters[skill.first].skills= this->Monsters[skill.first].equipedSkills;
+		this->Monsters[skill.first].skills = this->Monsters[skill.first].equipedSkills;
 	}
 }
 
@@ -430,10 +431,16 @@ void GloomHaven::execute(Being* being, Action* action)
 
 void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards)
 {
+	cout << cards.first << "'s turn\tcard:";
+	for (auto index : cards.second)
+	{
+		cout << ' ' << index.first;
+	}
+	cout << endl;
+	
 	auto character = *this->Characters.find(cards.first);
 	int playCard;
 	char playPart;
-	cout << character.first << "'s turn:" << endl;
 
 	if ((*cards.second.begin()).first == -1)
 	{
@@ -498,14 +505,12 @@ void GloomHaven::runTurn()
 
 	cout << "Round: " << this->round << endl;
 
-	while (characterChooseCard != charactercard.end() && monsterChooseCard != monstercard.end())
+	while (characterChooseCard != charactercard.end() || monsterChooseCard != monstercard.end())
 	{
 		if (characterChooseCard == charactercard.end())
 		{
-			cout << monsterChooseCard->first << ' ';
-			cout << monsterChooseCard->second.sp << ' ';
-			cout << monsterChooseCard->second.sp << ' ';
-			cout << endl;
+			cout << this->Monsters[monsterChooseCard->first].name << ' ';
+			monsterChooseCard->second.printSkill();
 			monsterChooseCard++;
 			continue;
 		}
@@ -522,12 +527,10 @@ void GloomHaven::runTurn()
 			continue;
 		}
 
-		if (characterChooseCard->second.begin()->second.sp < monsterChooseCard->second.sp)
+		if (characterChooseCard->second.begin()->second.sp > monsterChooseCard->second.sp)
 		{
-			cout << monsterChooseCard->first << ' ';
-			cout << monsterChooseCard->second.sp << ' ';
-			cout << monsterChooseCard->second.sp << ' ';
-			cout << endl;
+			cout << this->Monsters[monsterChooseCard->first].name << ' ';
+			monsterChooseCard->second.printSkill();
 			monsterChooseCard++;
 		}
 		else
@@ -546,7 +549,7 @@ void GloomHaven::runTurn()
 	characterChooseCard = charactercard.begin();
 	monsterChooseCard = monstercard.begin();
 
-	while (characterChooseCard != charactercard.end() && monsterChooseCard != monstercard.end())
+	while (characterChooseCard != charactercard.end() || monsterChooseCard != monstercard.end())
 	{
 		if (characterChooseCard == charactercard.end())
 		{
@@ -559,7 +562,7 @@ void GloomHaven::runTurn()
 			continue;
 		}
 
-		if (characterChooseCard->second.begin()->second.sp < monsterChooseCard->second.sp)
+		if (characterChooseCard->second.begin()->second.sp > monsterChooseCard->second.sp)
 		{
 			this->monsterPlayCard(*monsterChooseCard++);
 		}
