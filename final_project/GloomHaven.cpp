@@ -391,18 +391,26 @@ void GloomHaven::monstersTurn()
 		// is Alive
 		if (monster.second.hp <= 0)continue;
 
+		//choose a card to act
 		int skillIndex = rand() % monster.second.skills.size();
 		MonsterSkill skill = monster.second.skills[skillIndex];
 		monster.second.skills.erase(monster.second.skills.begin() + skillIndex);
 
+		//redraw monster's skill
 		if (skill.redraw)monster.second.skills = monster.second.equipedSkills;
-
+		
 		this->monsterChooseCards.insert({ monster.first, skill });
 	}
 }
 
-void GloomHaven::monsterPlayCard(pair<char, MonsterSkill>)
+void GloomHaven::monsterPlayCard(pair<char, MonsterSkill> card)
 {
+	auto monster = *this->Monsters.find(card.first);
+	for (auto action : card.second.act)
+	{
+		this->execute(&monster.second, action);
+	}
+	
 }
 
 void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards)
