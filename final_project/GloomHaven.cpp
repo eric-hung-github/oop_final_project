@@ -467,6 +467,7 @@ void GloomHaven::startTurn()
 		monstercard.push_back(c);
 	}
 
+
 }
 
 bool GloomHaven::isPositionConflict(Being* being, Position pos)
