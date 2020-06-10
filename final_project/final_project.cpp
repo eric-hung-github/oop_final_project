@@ -61,8 +61,6 @@ int main(char* argv[])
 		// execute  action <being skill> sort by sp
 		game.execute();
 
-		// is other trigger ex open door all dead
-
 		// is win or game over
 		game.updateGame();
 

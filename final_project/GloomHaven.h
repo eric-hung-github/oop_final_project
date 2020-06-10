@@ -21,16 +21,6 @@
 #include <algorithm>
 #include <map>
 
-#ifndef ACT_STRUCT
-#define ACT_STRUCT
-struct act
-{
-	int sp = 0;
-	Being* being = nullptr;
-	vector<Action*> actions;
-};
-#endif
-
 using namespace std;
 
 class GloomHaven
@@ -44,7 +34,12 @@ public:
 	std::map<char, Character> Characters;
 	std::map<char, Monster> Monsters;
 
-	vector<act> acts;
+	//std::map<char, pair<int, int>> chosecards;
+
+	std::map<char, std::map<int, CaracterSkill>> characterChooseCards;
+	std::map<char, MonsterSkill> monsterChooseCards;
+
+	//vector<act> acts;
 
 	// load data
 	bool loadCharcterData(string fileName);
@@ -61,7 +56,11 @@ public:
 	// game loop
 	void charactersTurn();
 	void monstersTurn();
-	void execute();
+	void startTurn();
+	void characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards);
+	void monsterPlayCard(pair<char, MonsterSkill>);
+	void execute(Being* being, Action* action);
+
 
 	// check move
 	bool isPositionConflict(Being* being, Position pos);

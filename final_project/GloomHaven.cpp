@@ -2,17 +2,43 @@
 
 using namespace std;
 
+/*
 bool minSortForActSp(act& a, act& b)
 {
 	if (a.sp < b.sp)
 	{
 		return true;
 	}
+	else if (a.sp = b.sp)
+	{
+		if ((typeid(&a.being) == typeid(Character)) && (typeid(&b.being) == typeid(Character)))
+		{
+			if (a.spTwo == b.spTwo)return a.being->name < b.being->name;
+			else return a.spTwo < b.spTwo;
+		}
+
+		if ((typeid(&a.being) == typeid(Character)) && (typeid(&b.being) == typeid(Monster)))
+		{
+			return true;
+		}
+
+		if ((typeid(&a.being) == typeid(Monster)) && (typeid(&b.being) == typeid(Character)))
+		{
+			return false;
+		}
+
+		if ((typeid(&a.being) == typeid(Monster)) && (typeid(&b.being) == typeid(Monster)))
+		{
+			return a.being->name < b.being->name;
+		}
+	}
 	else
 	{
 		return false;
 	}
 }
+
+*/
 
 bool GloomHaven::loadCharcterData(string fileName)
 {
@@ -250,6 +276,14 @@ void GloomHaven::chooseIntialPos()
 				{
 					intialPos = intialPosition;
 				}
+				else if (intialPosition.x + intialPosition.y == intialPos.x + intialPos.y)
+				{
+					if (intialPosition.y < intialPos.y)
+					{
+						intialPos = intialPosition;
+					}
+
+				}
 			}
 
 
@@ -272,113 +306,75 @@ void GloomHaven::chooseIntialPos()
 
 void GloomHaven::charactersTurn()
 {
-	//std::map<char, int[]>playedCard;
+	cin.ignore();
 
 	size_t totalTurns = this->Characters.size();
 
-	int** characterPlayCard = new int* [this->Characters.size()];
-
+	char chararcterIndex;
+	string inputCommand;
 	while (totalTurns > 0)
 	{
-		char characterIndex;
-		string command;
-		cin >> characterIndex >> command;
+		getline(cin, inputCommand);
 
-		if (command == "-1")// long rest
+		stringstream ss(inputCommand);
+		ss >> chararcterIndex;
+		ss >> inputCommand;
+
+		if (inputCommand == "check")
 		{
-			if (this->Characters[characterIndex].playedSkill.size() < 2)
+			// cout card
+			cout << "hand: ";
+			for (auto hasSkill : this->Characters[chararcterIndex].skills)
 			{
-				cout << "You can't REST NOW!!!" << endl;
+				cout << hasSkill.first << ' ';
+			}
+			cout << "; discard: ";
+			for (auto playedSkill : this->Characters[chararcterIndex].playedSkill)
+			{
+				cout << playedSkill.first << ' ';
+			}
+			cout << endl;
+
+			continue;
+		}
+		else if (inputCommand == "-1")
+		{
+			if (characterChooseCards.find(chararcterIndex) != characterChooseCards.end())
+			{
+				cout << "You have played Card!!!" << endl;
 
 			}
 			else
 			{
-				act newAct;
-				newAct.actions[0] = new ActRest;
-				newAct.sp = 99;
-				newAct.being = &this->Characters[characterIndex];
+				std::map<int, CaracterSkill> choosedSkill;
+				choosedSkill.insert(make_pair(-1, CaracterSkill::longRest));
+				characterChooseCards.insert(make_pair(chararcterIndex, choosedSkill));
+				totalTurns -= 1;
+			}
 
-				this->acts.push_back(newAct);
+		}
+		else
+		{
+			if (characterChooseCards.find(chararcterIndex) != characterChooseCards.end())
+			{
+				cout << "You have played Card!!!" << endl;
+			}
+			else
+			{
+				int cards[2];
+				cards[0] = stoi(inputCommand);
+				ss >> cards[1];
+				auto skillOne = std::make_pair(cards[0], this->Characters[chararcterIndex].skills[cards[0]]);
+				auto skillTwo = std::make_pair(cards[1], this->Characters[chararcterIndex].skills[cards[1]]);
+				std::map<int, CaracterSkill> choosedSkill;
+				choosedSkill.insert(skillOne);
+				choosedSkill.insert(skillTwo);
+				characterChooseCards.insert(make_pair(chararcterIndex, choosedSkill));
 
 				totalTurns -= 1;
 			}
 
 		}
-		else if (command == "check")// check
-		{
-			// cout card
-			cout << "hand: ";
-			for (auto hasSkill : this->Characters[characterIndex].skills)
-			{
-				cout << hasSkill.first << ' ';
-			}
-			cout << "; discard: ";
-			for (auto playedSkill : this->Characters[characterIndex].playedSkill)
-			{
-				cout << playedSkill.first << ' ';
-			}
-			cout << endl;
-		}
-		else // play card
-		{
-			int playedSkill[2];
-			playedSkill[0] = stoi(command);
-			cin >> command;
-			playedSkill[1] = stoi(command);
-
-			characterPlayCard[characterIndex - 'A'] = playedSkill;
-		}
-	}
-
-	char chosecard[4][3] = { 0 };
-
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			cin >> chosecard[i][j];
-		}
-	}
-	for (auto& character : this->Characters)
-	{
-		int i = 0;
-		string merge;
-		cin >> merge;
-		act newAct;
-		newAct.being = &character.second;
-		if (character.second.skills[chosecard[i][1]].sp >
-			character.second.skills[chosecard[i][2]].sp)
-			newAct.sp = character.second.skills[chosecard[i][2]].sp;
-		else
-			newAct.sp = character.second.skills[chosecard[i][1]].sp;
-
-		if (merge[0] == chosecard[i][1])
-		{
-			if (merge[1] == 'u')
-			{
-				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
-				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
-			}
-			else if (merge[1] == 'd')
-			{
-				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
-				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
-			}
-		}
-		else if (merge[1] == chosecard[i][2])
-		{
-			if (merge[1] == 'u')
-			{
-				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].upAct);
-				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].downAct);
-			}
-			else if (merge[1] == 'd')
-			{
-				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][2]].downAct);
-				//newAct.actions.push_back(character.second.skills[(int)chosecard[i][1]].upAct);
-			}
-		}
-		i++;
 	}
 
 }
@@ -401,32 +397,63 @@ void GloomHaven::monstersTurn()
 
 		if (skill.redraw)monster.second.skills = monster.second.equipedSkills;
 
-		act newAct;
-		newAct.being = &(monster.second);
-		newAct.sp = skill.sp;
-		for (auto& act : skill.act)
-		{
-			newAct.actions.push_back(act);
-		}
-		this->acts.push_back(newAct);
+		this->monsterChooseCards.insert({ monster.first, skill });
 	}
 }
 
-void GloomHaven::execute()
+void GloomHaven::monsterPlayCard(pair<char, MonsterSkill>)
 {
-	sort(this->acts.begin(), this->acts.end(), minSortForActSp);
+}
 
-	// one by one execute
-	for (auto& act : this->acts)
+void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards)
+{
+	auto character = *this->Characters.find(cards.first);
+	int playCard;
+	char playPart, anotherPLayPart;
+	cout << character.first << "'s turn:" << endl;
+
+	if ((*cards.second.begin()).first==-1)
 	{
-		for (auto& action : act.actions)
-		{
-			action->execute(act.being);
-			this->updateGame();
-		}
-		this->updateGame();
-		this->draw();
+		ActRest rest;
+		this->execute(&character.second, &rest);
+		return;
 	}
+
+	cin >> playCard >> playPart;
+
+	if (playPart = 'u')
+	{
+		for (auto action : cards.second[playPart].upAct)
+		{
+			this->execute(&character.second, action);
+		}
+
+		cards.second.erase(playPart);
+
+		for (auto action : (*cards.second.begin()).second.downAct)
+		{
+			this->execute(&character.second, action);
+		}
+	}
+	else if (playPart = 'd')
+	{
+		for (auto action : cards.second[playPart].downAct)
+		{
+			this->execute(&character.second, action);
+		}
+
+		cards.second.erase(playPart);
+
+		for (auto action : (*cards.second.begin()).second.upAct)
+		{
+			this->execute(&character.second, action);
+		}
+	}
+
+}
+
+void GloomHaven::startTurn()
+{
 }
 
 bool GloomHaven::isPositionConflict(Being* being, Position pos)
@@ -451,7 +478,7 @@ bool GloomHaven::isCharacterMoveable(Being* being, Position pos)
 
 bool GloomHaven::isMonsterMoveable(Being* being, Position pos)
 {
-	if (this->map.board[pos.y][pos.x] ==this->map.space && !isPositionConflict(being, pos))return true;
+	if (this->map.board[pos.y][pos.x] == this->map.space && !isPositionConflict(being, pos))return true;
 	return false;
 }
 
