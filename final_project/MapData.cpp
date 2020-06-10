@@ -132,3 +132,65 @@ void MapData::isOpenDoor(vector<Position> characterPoses)
 		}
 	}
 }
+
+void MapData::drawSetIntailPos(vector<pair<char, Position>> beingPoses)
+{
+	char** drawBoard = new char* [this->height];
+	for (int i = 0; i < this->height; i++)
+	{
+		drawBoard[i] = new char[this->width];
+		for (int j = 0; j < this->width; j++)
+		{
+			Position pos = Position(j, i);
+			if (visiblePosition.find({ j,i }) != visiblePosition.end())
+			{
+				drawBoard[i][j] = board[i][j];
+			}
+			else
+			{
+				drawBoard[i][j] = ' ';
+			}
+		}
+	}
+
+	// minPos
+	Position minIntialPos = (this->intialPositions[0]);// weird----
+	for (auto intialPosition : this->intialPositions)
+	{
+		if (intialPosition.x + intialPosition.y < minIntialPos.x + minIntialPos.y)
+		{
+			minIntialPos = intialPosition;
+		}
+		else if (intialPosition.x + intialPosition.y == minIntialPos.x + minIntialPos.y)
+		{
+			if (intialPosition.y < minIntialPos.y)
+			{
+				minIntialPos = intialPosition;
+			}
+
+		}
+	}
+
+	for (auto intialPos:this->intialPositions)
+	{
+		drawBoard[intialPos.y][intialPos.x] = '_';
+	}
+	drawBoard[minIntialPos.y][minIntialPos.x] = '*';
+
+	for (auto beingPos : beingPoses)
+	{
+		drawBoard[beingPos.second.y][beingPos.second.x] = beingPos.first;
+	}
+
+
+	for (int i = 0; i < this->height; i++)
+	{
+		for (int j = 0; j < this->width; j++)
+		{
+			cout << drawBoard[i][j];
+		}
+		cout << endl;
+	}
+	cout << endl;
+
+}

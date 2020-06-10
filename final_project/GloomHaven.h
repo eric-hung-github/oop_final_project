@@ -26,6 +26,8 @@ using namespace std;
 class GloomHaven
 {
 public:
+	int round = 1;
+
 	vector<CharcterData> CharcterDatas;
 	vector<MonsterData> MonsterDatas;
 
@@ -56,7 +58,7 @@ public:
 	// game loop
 	void charactersTurn();
 	void monstersTurn();
-	void startTurn();
+	void runTurn();
 	void characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards);
 	void monsterPlayCard(pair<char, MonsterSkill>);
 	void execute(Being* being, Action* action);

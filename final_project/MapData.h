@@ -58,4 +58,6 @@ public:
 	bool isIntialPos(Position pos);
 
 	void isOpenDoor(vector<Position> characterPoses);
+
+	void drawSetIntailPos(vector<pair<char,Position>>);
 };
