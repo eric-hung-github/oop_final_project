@@ -452,6 +452,32 @@ void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> card
 
 }
 
+bool cmpcharacter(pair<char,std::map<int,CaracterSkill>>& a,pair<char,std::map<int,CaracterSkill>>& b) 
+{
+	std::map<int, CaracterSkill>::iterator ita = a.second.begin();
+	std::map<int, CaracterSkill>::iterator itb = b.second.begin();
+	if (ita->second.sp == itb->second.sp) 
+	{
+		ita++;
+		itb++;
+		if (ita->second.sp == itb->second.sp)
+		{
+			return a.first < b.first;
+		}
+		else
+		{
+			return ita->second.sp < itb->second.sp;
+		}
+	}
+	return ita->second.sp < itb->second.sp;
+	
+}
+
+bool cmpmonster(pair<char,MonsterSkill>& a, pair<char,MonsterSkill>& b)
+{
+	return a.second.sp < b.second.sp;
+}
+
 void GloomHaven::startTurn()
 {
 	vector<pair<char, std::map<int, CaracterSkill>>> charactercard;
@@ -467,6 +493,8 @@ void GloomHaven::startTurn()
 		monstercard.push_back(c);
 	}
 
+	sort(charactercard.begin(), charactercard.end(), cmpcharacter);
+	sort(monstercard.begin(), monstercard.end(), cmpmonster);
 
 }
 
