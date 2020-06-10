@@ -416,6 +416,10 @@ void GloomHaven::monsterPlayCard(pair<char, MonsterSkill> skill)
 	{
 		this->execute(&this->Monsters[skill.first], action);
 	}
+	if (skill.second.redraw)
+	{
+		this->Monsters[skill.first].skills= this->Monsters[skill.first].equipedSkills;
+	}
 }
 
 void GloomHaven::execute(Being* being, Action* action)
@@ -447,7 +451,7 @@ void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> card
 			this->execute(&character.second, action);
 		}
 
-		cards.second.erase(playPart);
+		cards.second.erase(playCard);
 
 		for (auto action : (*cards.second.begin()).second.downAct)
 		{
@@ -461,7 +465,7 @@ void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> card
 			this->execute(&character.second, action);
 		}
 
-		cards.second.erase(playPart);
+		cards.second.erase(playCard);
 
 		for (auto action : (*cards.second.begin()).second.upAct)
 		{
