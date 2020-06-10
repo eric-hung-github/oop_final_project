@@ -45,12 +45,14 @@ void Character::move(ActMove action)
 			}
 			else
 			{
+				cout << "Invalid Move"<<endl;
 				validMove = false;
 			}
 		}
 		if (validMove)
 		{
 			this->pos = nextPos;
+			break;
 		}
 
 	}
