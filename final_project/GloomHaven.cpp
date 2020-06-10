@@ -312,7 +312,7 @@ void GloomHaven::charactersTurn()
 
 	char chararcterIndex;
 	string inputCommand;
-	while (totalTurns>0)
+	while (totalTurns > 0)
 	{
 		getline(cin, inputCommand);
 
@@ -346,7 +346,9 @@ void GloomHaven::charactersTurn()
 			}
 			else
 			{
-				characterChooseCards.insert(make_pair(chararcterIndex,make_pair(CaracterSkill::longRest, CaracterSkill::longRest)));
+				std::map<int, CaracterSkill> choosedSkill;
+				choosedSkill.insert(make_pair(-1, CaracterSkill::longRest));
+				characterChooseCards.insert(make_pair(chararcterIndex, choosedSkill));
 				totalTurns -= 1;
 			}
 
@@ -362,19 +364,19 @@ void GloomHaven::charactersTurn()
 				int cards[2];
 				cards[0] = stoi(inputCommand);
 				ss >> cards[1];
-				auto skillOne = this->Characters[chararcterIndex].skills[cards[0]];
-				auto skillTwo = this->Characters[chararcterIndex].skills[cards[1]];
-				characterChooseCards.insert(make_pair(chararcterIndex, std::make_pair(skillOne,skillTwo)));
+				auto skillOne = std::make_pair(cards[0], this->Characters[chararcterIndex].skills[cards[0]]);
+				auto skillTwo = std::make_pair(cards[1], this->Characters[chararcterIndex].skills[cards[1]]);
+				std::map<int, CaracterSkill> choosedSkill;
+				choosedSkill.insert(skillOne);
+				choosedSkill.insert(skillTwo);
+				characterChooseCards.insert(make_pair(chararcterIndex, choosedSkill));
+
 				totalTurns -= 1;
 			}
 
 		}
 	}
 
-}
-
-void GloomHaven::monsterPlayCard(pair<char, MonsterSkill>)
-{
 }
 
 void GloomHaven::monstersTurn()
@@ -399,54 +401,55 @@ void GloomHaven::monstersTurn()
 	}
 }
 
-void GloomHaven::characterPlayCard(pair<char, pair<CaracterSkill, CaracterSkill>> cards)
+void GloomHaven::monsterPlayCard(pair<char, MonsterSkill>)
+{
+}
+
+void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards)
 {
 	auto character = *this->Characters.find(cards.first);
+	int playCard;
+	char playPart, anotherPLayPart;
+	cout << character.first << "'s turn:" << endl;
 
-	int i = 0;
-	string inputCommand;
-	CaracterSkill newskill1 = character.second.skills[chosecards[character.first].first];
-	CaracterSkill newskill2 = character.second.skills[chosecards[character.first].second];
-	newAct.being = &character.second;
-	if (character.second.skills[chosecards[character.first].first].sp >
-		character.second.skills[chosecards[character.first].second].sp)
+	if ((*cards.second.begin()).first==-1)
 	{
-		newAct.sp = character.second.skills[chosecards[character.first].second].sp;
-		newAct.spTwo = character.second.skills[chosecards[character.first].first].sp;
-	}
-	else
-	{
-		newAct.sp = character.second.skills[chosecards[character.first].first].sp;
-		newAct.spTwo = character.second.skills[chosecards[character.first].second].sp;
+		ActRest rest;
+		this->execute(&character.second, &rest);
+		return;
 	}
 
-	if (inputCommand[0] == chosecards[character.first].first)
+	cin >> playCard >> playPart;
+
+	if (playPart = 'u')
 	{
-		if (inputCommand[1] == 'u')
+		for (auto action : cards.second[playPart].upAct)
 		{
-			newAct.actions.push_back(newskill1.upAct[chosecards[character.first].first]);
-			newAct.actions.push_back(newskill2.downAct[chosecards[character.first].second]);
+			this->execute(&character.second, action);
 		}
-		else if (inputCommand[1] == 'd')
+
+		cards.second.erase(playPart);
+
+		for (auto action : (*cards.second.begin()).second.downAct)
 		{
-			newAct.actions.push_back(newskill1.downAct[chosecards[character.first].first]);
-			newAct.actions.push_back(newskill2.upAct[chosecards[character.first].second]);
+			this->execute(&character.second, action);
 		}
 	}
-	else if (inputCommand[1] == chosecards[character.first].second)
+	else if (playPart = 'd')
 	{
-		if (inputCommand[1] == 'u')
+		for (auto action : cards.second[playPart].downAct)
 		{
-			newAct.actions.push_back(newskill2.upAct[chosecards[character.first].second]);
-			newAct.actions.push_back(newskill1.downAct[chosecards[character.first].first]);
+			this->execute(&character.second, action);
 		}
-		else if (inputCommand[1] == 'd')
+
+		cards.second.erase(playPart);
+
+		for (auto action : (*cards.second.begin()).second.upAct)
 		{
-			newAct.actions.push_back(newskill2.downAct[chosecards[character.first].second]);
-			newAct.actions.push_back(newskill1.upAct[chosecards[character.first].first]);
+			this->execute(&character.second, action);
 		}
 	}
-	this->acts.push_back(newAct);
+
 }
 
 void GloomHaven::startTurn()

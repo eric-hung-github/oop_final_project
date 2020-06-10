@@ -21,6 +21,6 @@ public:
 
 	void printSkill();
 
-	const static CaracterSkill longRest;
+	static CaracterSkill longRest;
 };
 

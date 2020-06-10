@@ -36,7 +36,7 @@ public:
 
 	//std::map<char, pair<int, int>> chosecards;
 
-	std::map<char, pair<CaracterSkill, CaracterSkill>> characterChooseCards;
+	std::map<char, std::map<int, CaracterSkill>> characterChooseCards;
 	std::map<char, MonsterSkill> monsterChooseCards;
 
 	//vector<act> acts;
@@ -57,8 +57,9 @@ public:
 	void charactersTurn();
 	void monstersTurn();
 	void startTurn();
-	void characterPlayCard(pair<char, pair<CaracterSkill, CaracterSkill>> cards);
+	void characterPlayCard(pair<char, std::map<int, CaracterSkill>> cards);
 	void monsterPlayCard(pair<char, MonsterSkill>);
+	void execute(Being* being, Action* action);
 
 
 	// check move
