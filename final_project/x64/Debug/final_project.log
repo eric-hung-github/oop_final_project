@@ -1,3 +1,17 @@
-﻿GloomHaven.obj : error LNK2019: 無法解析的外部符號 "public: void __cdecl GloomHaven::execute(class Being *,class Action *)" (?execute@GloomHaven@@QEAAXPEAVBeing@@PEAVAction@@@Z) 在函式 "public: void __cdecl GloomHaven::characterPlayCard(struct std::pair<char,class std::map<int,class CaracterSkill,struct std::less<int>,class std::allocator<struct std::pair<int const ,class CaracterSkill> > > >)" (?characterPlayCard@GloomHaven@@QEAAXU?$pair@DV?$map@HVCaracterSkill@@U?$less@H@std@@V?$allocator@U?$pair@$$CBHVCaracterSkill@@@std@@@3@@std@@@std@@@Z) 中被參考
-GloomHaven.obj : error LNK2001: 無法解析的外部符號 "public: static class CaracterSkill CaracterSkill::longRest" (?longRest@CaracterSkill@@2V1@A)
-C:\Users\Hsiehyubin\Source\Repos\xioubin\oop_final_project\x64\Debug\final_project.exe : fatal error LNK1120: 2 個無法解析的外部符號
+﻿  Action.cpp
+  Being.cpp
+  BeingData.cpp
+  CaracterSkill.cpp
+  CharcterData.cpp
+  GloomHaven.cpp
+  MonsterData.cpp
+  Skill.cpp
+  Character.cpp
+  final_project.cpp
+  MapData.cpp
+  Monster.cpp
+  MonsterSkill.cpp
+  Postition.cpp
+  正在產生程式碼...
+C:\Users\Hsiehyubin\source\repos\eric-hung-github\oop_final_project\final_project\MonsterSkill.cpp(88): warning C4715: 'enterAction': 不是所有控制路徑都傳回值
+  final_project.vcxproj -> C:\Users\Hsiehyubin\source\repos\eric-hung-github\oop_final_project\x64\Debug\final_project.exe

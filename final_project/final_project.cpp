@@ -59,7 +59,7 @@ int main(char* argv[])
 		game.monstersTurn();
 
 		// execute  action <being skill> sort by sp
-		//game.execute();
+		game.execute();
 
 		// is win or game over
 		game.updateGame();
