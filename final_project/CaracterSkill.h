@@ -20,4 +20,7 @@ public:
 	CaracterSkill(string information);
 
 	void printSkill();
+
+	const static CaracterSkill longRest;
 };
+
