@@ -454,6 +454,19 @@ void GloomHaven::characterPlayCard(pair<char, std::map<int, CaracterSkill>> card
 
 void GloomHaven::startTurn()
 {
+	vector<pair<char, std::map<int, CaracterSkill>>> charactercard;
+	vector < pair<char, MonsterSkill>> monstercard;
+
+	for (auto c : this->characterChooseCards)
+	{
+		charactercard.push_back(c);
+	}
+
+	for (auto c : this->monsterChooseCards)
+	{
+		monstercard.push_back(c);
+	}
+
 }
 
 bool GloomHaven::isPositionConflict(Being* being, Position pos)
